@@ -14,7 +14,10 @@ function WidgetPlayer(options) {
 
     var back = $('<div class="widgetplayer-back"/>');
     back.text(settings.messages.back);
-    back.click(settings.type.back);
+    back.click(function() {
+        setPlaying(false);
+        goBack();
+    });
     nav.append(back);
 
     var playpause = $('<img class="widgetplayer-playpause"/>');
@@ -23,7 +26,10 @@ function WidgetPlayer(options) {
 
     var next = $('<div class="widgetplayer-next"/>');
     next.text(settings.messages.next);
-    next.click(settings.type.next);
+    next.click(function() {
+        setPlaying(false);
+        goNext();
+    });
     nav.append(next);
 
     widget.prepend(nav);
@@ -37,7 +43,11 @@ function WidgetPlayer(options) {
     goNext();
 
     function togglePlay() {
-        settings.auto = !settings.auto;
+        setPlaying(!settings.auto);
+    }
+    
+    function setPlaying(playing) {
+        settings.auto = playing;
         if(settings.auto) {
             goNext();
         }
