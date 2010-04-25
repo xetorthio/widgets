@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Widget Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" language="Javascript" src="jquery.js"></script>
+    <script type="text/javascript" language="Javascript" src="widgetplayer.js"></script>
+    
+    <script type="text/javascript" language="Javascript">
+        jQuery(document).ready(function($) {
+            var w = new WidgetPlayer({
+                id: 'widget',
+                messages: {
+                    back: '< Prev.',
+                    next: 'Next. >'
+                },
+                type: { draw: function() {}}
+            });
+      });
+    </script>
+  </head>
+  <body>
+      <div id="widget">
+        <div><a href="http://amistarium.com" class="widgetplayer-footer">amistarium.com</a></div>
+      </div>
+  </body>
+</html>
