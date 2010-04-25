@@ -34,17 +34,28 @@ function WidgetPlayer(options) {
 
     settings.type.draw(canvas);
     
-    if(settings.auto) {
-        run();
-    } else {
-        goNext();
-    }
+    goNext();
 
     function togglePlay() {
-        //TODO: do all the magic
+        settings.auto = !settings.auto;
+        if(settings.auto) {
+            goNext();
+        }
+        run();
+        showPlayPauseButton();
+    }
+
+    function showPlayPauseButton() {
+        if(settings.auto) {
+            playpause.attr('src',settings.images.pause);     
+        } else {
+            playpause.attr('src',settings.images.play);     
+        }
     }
 
     function applyStyles() {
+        showPlayPauseButton();
+
         //TODO: apply styles
     }
 
@@ -55,16 +66,11 @@ function WidgetPlayer(options) {
 
     var slideChangeTimeout = null;
     
-
-
     function showWhenReady() {
         clearTimeout(slideChangeTimeout);
         if(settings.type.ready()) {
             settings.type.show();
-            if(settings.auto) {
-                slideChangeTimeout = setTimeout(
-                    function() { goNext(); }, settings.duration * 1000);
-            }
+            run();
             return;
         }
         // If the widget has not finished loading, try again in 500ms
@@ -84,10 +90,11 @@ function WidgetPlayer(options) {
 
     function run() {
         clearTimeout(slideChangeTimeout);
-        goNext();
-        
-        slideChangeTimeout = setTimeout(
-            function() { goNext(); }, settings.duration * 1000);
+        if(settings.auto) {
+            slideChangeTimeout = setTimeout(
+                function() { goNext(); }, settings.duration * 1000
+            );
+        }
     }
     
     function checkRequiredParams(settings) {
