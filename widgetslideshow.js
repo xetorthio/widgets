@@ -38,6 +38,7 @@ function WidgetSlideshow(settings) {
             slideCell.css('height', settings.slide_height);
             slideCell.css('width', settings.width);
             slideCell.css('vertical-align', 'middle');
+            slideTable.width(canvas.width());
             slideTable.hide();
             
             
@@ -106,6 +107,10 @@ function WidgetSlideshow(settings) {
                 removeFailedSlide($(this), 0);
             });
         }
+        
+        slideHolder.css('overflow', 'hidden');
+        slideHolder.css('width', settings.width);
+        slideHolder.css('height', settings.slide_height);
         
         canvas.append(slideHolder);
         

@@ -1,47 +1,129 @@
 function WidgetPlayer(options) {
-    checkRequiredParams(options);
+    var that = this;
     var defaults = getDefaults();
-
     var settings = $.extend({}, defaults, options);
-    
     var widget = $('#'+settings.id);
-
     var header = $('<div class="widgetplayer-header" />');
     var canvas = $('<div class="widgetplayer-canvas"/>');
     var nav = $('<div class="widgetplayer-nav"/>');
-
-    header.text(settings.messages.title);
-
+    var footer = $('.widgetplayer-footer', widget)
     var back = $('<div class="widgetplayer-back"/>');
-    back.text(settings.messages.back);
-    back.click(function() {
-        setPlaying(false);
-        goBack();
-    });
-    nav.append(back);
-
-    var playpause = $('<img class="widgetplayer-playpause"/>');
-    playpause.click(togglePlay);
-    nav.append(playpause);
-
+    var playPause = $('<img class="widgetplayer-playpause"/>');
     var next = $('<div class="widgetplayer-next"/>');
-    next.text(settings.messages.next);
-    next.click(function() {
-        setPlaying(false);
-        goNext();
-    });
-    nav.append(next);
-
-    widget.prepend(nav);
-    widget.prepend(canvas);
-    widget.prepend(header);
-
-    applyStyles();
-
-    settings.type.draw(canvas);
     
-    goNext();
+    function getDefaults() {
 
+        /**
+         * Default settings
+         */
+        return {
+            // The title of the widget
+            title: '',
+            // Auto-play - If true, slides will transition automatically
+            auto: true,
+            // Duration of each slide in auto-play mode, in seconds
+            duration: 3,
+            // The time taken to fade-in/fade-out in milli-seconds
+            effectDuration: 400,
+            // The gender of the user: m (male), f (female), b (both)
+            gender: 'f',
+            
+            
+            // Width of entire widget
+            width: 200,
+            // Width of image itself
+            image_width: 145,
+            // Maximum height of image (the image will be cropped to this height)
+            image_max_height: 200,
+            // Height of slide - this is constant, and includes the region text
+            slide_height: 245,
+            
+            // Background color of the slide
+            background: '#000000',
+            
+            
+            // Text font
+            font: '12px arial',
+            
+            // Note: These all default to the general font if null
+            // Font for the title text
+            title_font: '16px verdana',
+            // Font for the region link
+            link_font: null,
+            // Font for the previous/next text
+            nav_font: null,
+            // Font for the footer text
+            footer_font: null,
+            
+            
+            
+            // Color of the border around the widget
+            border_color: '#999999',
+            
+            // Color of the text in general
+            color: '#FFFFFF',
+            
+            // Note: These all default to the general color
+            // Color of the title text
+            title_color: null,
+            // Color of the region link
+            link_color: null,
+            // Color of the previous/next text
+            nav_color: null,
+            // Color of the footer text
+            footer_color: null,
+            
+            // Indicates whether widget has a border around it
+            has_border: false,
+            
+            // Images to use for the play and pause buttons
+            images: {
+                play: 'images/play.png',
+                pause: 'images/pause.png'
+            },
+            
+            // Translations
+            messages: {
+                previous: 'Ant.',
+                next: 'Sig.'
+            }
+        };
+    }
+    
+    
+    function init() {
+        checkRequiredParams(options);
+        that.setTitle(settings.title);
+        
+        back.text(settings.messages.back);
+        back.click(function() {
+            setPlaying(false);
+            goBack();
+        });
+        nav.append(back);
+    
+        playPause.click(togglePlay);
+        nav.append(playPause);
+    
+        next.text(settings.messages.next);
+        next.click(function() {
+            setPlaying(false);
+            goNext();
+        });
+        nav.append(next);
+    
+        widget.prepend(nav);
+        widget.prepend(canvas);
+        widget.prepend(header);
+    
+        applyStyles();
+    
+        settings.type.draw(canvas);
+        
+        goNext();
+    }
+    
+    
     function togglePlay() {
         setPlaying(!settings.auto);
     }
@@ -57,22 +139,64 @@ function WidgetPlayer(options) {
 
     function showPlayPauseButton() {
         if(settings.auto) {
-            playpause.attr('src',settings.images.pause);     
+            playPause.attr('src',settings.images.pause);     
         } else {
-            playpause.attr('src',settings.images.play);     
+            playPause.attr('src',settings.images.play);     
         }
     }
 
     function applyStyles() {
         showPlayPauseButton();
+        
+        // Widget in general
+        that.setBackgroundColor(settings.background);
+        that.setHasBorder(settings.has_border);
+        that.setGeneralColor(settings.color);
+        
+        widget.css('width', settings.width);
+        widget.css('font', settings.font);
+        widget.css('-moz-border-radius', 5);
+        widget.css('-webkit-border-radius', 5);
+        
+        
+        // Header
+        header.css('width', settings.width);
+        header.css('text-align', 'center');
+        header.css('padding', '10px 0 10px 0');
+        settings.title_color && header.css('color', settings.title_color);
+        settings.title_font && header.css('font', settings.title_font);
+        
+        // Nav
+        back.css('width', 92);
+        back.css('float', 'left');
+        back.css('text-align', 'center');
+        back.css('cursor', 'pointer');
+        
+        next.css('width', 92);
+        next.css('float', 'right');
+        next.css('text-align', 'center');
+        next.css('cursor', 'pointer');
+        
+        playPause.css('width', 16);
+        playPause.css('float', 'left');
+        playPause.css('cursor', 'pointer');
 
-        //TODO: apply styles
+        nav.css('width', settings.width);
+        nav.css('float', 'left');
+        nav.css('height', 26);
+        nav.css('padding', '0 0 5px 0');
+        settings.nav_color && nav.css('color', settings.nav_color);
+        settings.nav_font && nav.css('font', settings.nav_font);
+        
+        // Footer
+        footer.css('padding', '5px 0 10px 0');
+        footer.css('width', widget.width());
+        footer.css('text-align', 'center');
+        footer.css('display', 'block');
+        footer.css('font', settings.footer_font || settings.font);
     }
 
-    function getDefaults() {
-        //TODO: deal with defaults
-        return {};
-    }
+    
 
     var slideChangeTimeout = null;
     
@@ -116,4 +240,56 @@ function WidgetPlayer(options) {
             }
         }
     }
+    
+    
+    
+    //
+    // Public functions
+    //
+    
+    this.setTitle = function(title) {
+        settings.title = title;
+        header.text(title);
+    };
+    
+    this.setGeneralColor = function(color) {
+        settings.color = color;
+        widget.css('color', color);
+        footer.css('color', color);
+    };
+    
+    this.setBackgroundColor = function(color) {
+        settings.background = color;
+        widget.css('background', color);
+    };
+    
+    this.setTitleColor = function(color) {
+        settings.title_color = color;
+        header.css('color', color);
+    };
+    
+    this.setBorderColor = function(color) {
+        settings.border_color = color;
+        widget.css('border-color', color);
+    };
+    
+    this.setHasBorder = function(hasBorder) {
+        settings.has_border = hasBorder;
+        if(hasBorder) {
+            var borderCss = '3px solid ' + settings.border_color;
+            widget.css('border', borderCss);
+        } else {
+            widget.css('border', 'none');
+        }
+    };
+    
+    this.setPlayDuration = function(duration) {
+        settings.duration = duration;
+    };
+    
+    this.setAutoPlay = function(auto) {
+        setPlaying(auto);
+    };
+    
+    init();
 }
