@@ -1,12 +1,15 @@
 function WidgetSlideshow(settings) {
     var currentSlide = -1;
+    var previousSlide = -1;
     var slides = [];
     
-    this.next = function() {
-        slideChange(true);
+    this.goNext = function() {
+        previousSlide = currentSlide;
+        currentSlide = getNextSlideIndex(true);
     };
-    this.back = function() {
-        slideChange(false);
+    this.goBack = function() {
+        previousSlide = currentSlide;
+        currentSlide = getNextSlideIndex(false);
     };
     
     
@@ -167,22 +170,11 @@ function WidgetSlideshow(settings) {
         return startIndex - 1;
     };
     
-    this.nextReady = function() {
-        var nextSlide = getNextSlideIndex(true);
-        return slides[nextSlide].img.attr('complete');
-    };
+    this.ready = function() {
+        return slides[currentSlide].img.attr('complete');
+    }
     
-    this.backReady = function() {
-        var previousSlide = getNextSlideIndex(false);
-        return slides[previousSlide].img.attr('complete');
-    };
-    
-    
-    function slideChange(forwards) {
-        var previousSlide = currentSlide;
-        currentSlide = getNextSlideIndex(forwards);
-        
-        
+    this.show = function(){
         // If the image height is smaller than the maximum height, crop
         // the image at its exact height
         // Note: The height of the image is not available until it is visible

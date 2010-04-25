@@ -33,7 +33,12 @@ function WidgetPlayer(options) {
     applyStyles();
 
     settings.type.draw(canvas);
-    change();
+    
+    if(settings.auto) {
+        run();
+    } else {
+        goNext();
+    }
 
     function togglePlay() {
         //TODO: do all the magic
@@ -50,43 +55,40 @@ function WidgetPlayer(options) {
 
     var slideChangeTimeout = null;
     
-    
-    function change() {
-        transition(true);
-        
-        // If auto-play is enabled, transition to the next slide after a delay
-        if(settings.auto) {
-            slideChangeTimeout = setTimeout(
-                function() { change(); }, settings.duration * 1000);
-        }
-    }
-    
-    function transition(forwards) {
+
+
+    function showWhenReady() {
         clearTimeout(slideChangeTimeout);
-        
-        // If the widget is ready
-        var ready = true;
-        if(forwards) {
-            ready = (!settings.type.nextReady || settings.type.nextReady());
-        } else {
-            ready = (!settings.type.backReady || settings.type.backReady());
-        }
-    
-        if(!ready) {
-            // If the widget has not finished loading, try again in 500ms
-            slideChangeTimeout = setTimeout(
-                function() { change(); }, 500);
-            
+        if(settings.type.ready()) {
+            settings.type.show();
+            if(settings.auto) {
+                slideChangeTimeout = setTimeout(
+                    function() { goNext(); }, settings.duration * 1000);
+            }
             return;
         }
-        
-        if(forwards) {
-            settings.type.next();
-        } else {
-            settings.type.back();
-        }
+        // If the widget has not finished loading, try again in 500ms
+        slideChangeTimeout = setTimeout(
+            function() { showWhenReady(); }, 500);
+    }
+
+    function goBack() {
+        settings.type.goBack();
+        showWhenReady();
     }
     
+    function goNext() {
+        settings.type.goNext();
+        showWhenReady();
+    }
+
+    function run() {
+        clearTimeout(slideChangeTimeout);
+        goNext();
+        
+        slideChangeTimeout = setTimeout(
+            function() { goNext(); }, settings.duration * 1000);
+    }
     
     function checkRequiredParams(settings) {
         var requiredParams = ['id'];
