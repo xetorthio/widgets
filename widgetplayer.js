@@ -33,6 +33,7 @@ function WidgetPlayer(options) {
     applyStyles();
 
     settings.type.draw(canvas);
+    change();
 
     function togglePlay() {
         //TODO: do all the magic
@@ -47,6 +48,46 @@ function WidgetPlayer(options) {
         return {};
     }
 
+    var slideChangeTimeout = null;
+    
+    
+    function change() {
+        transition(true);
+        
+        // If auto-play is enabled, transition to the next slide after a delay
+        if(settings.auto) {
+            slideChangeTimeout = setTimeout(
+                function() { change(); }, settings.duration * 1000);
+        }
+    }
+    
+    function transition(forwards) {
+        clearTimeout(slideChangeTimeout);
+        
+        // If the widget is ready
+        var ready = true;
+        if(forwards) {
+            ready = (!settings.type.nextReady || settings.type.nextReady());
+        } else {
+            ready = (!settings.type.backReady || settings.type.backReady());
+        }
+    
+        if(!ready) {
+            // If the widget has not finished loading, try again in 500ms
+            slideChangeTimeout = setTimeout(
+                function() { change(); }, 500);
+            
+            return;
+        }
+        
+        if(forwards) {
+            settings.type.next();
+        } else {
+            settings.type.back();
+        }
+    }
+    
+    
     function checkRequiredParams(settings) {
         var requiredParams = ['id'];
         for(var i = 0; i < requiredParams.length; i++) {

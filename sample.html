@@ -4,8 +4,9 @@
   <head>
     <title>Widget Demo</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script type="text/javascript" language="Javascript" src="jquery.js"></script>
+    <script type="text/javascript" language="Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetplayer.js"></script>
+    <script type="text/javascript" language="Javascript" src="widgetslideshow.js"></script>
     
     <script type="text/javascript" language="Javascript">
         jQuery(document).ready(function($) {
@@ -15,7 +16,49 @@
                     back: '< Prev.',
                     next: 'Next. >'
                 },
-                type: { draw: function() {}}
+                auto: false,
+                duration: 1,
+                type: new WidgetSlideshow({
+                    slides: [
+                       {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
+                           link: null,
+                           region: 'Buenos Aires, Argentina',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
+                           link: null,
+                           region: 'Harare, Zimbabwe',
+                           region_link: null,
+                           gender: 'm'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
+                           link: null,
+                           region: 'Seattle, United States',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static05.amistarium.com/img-es-es-/2010/4/13/mdn-1128601131095215.jpg',
+                           link: null,
+                           region: 'Madrid, Espa√±a',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1890168181102365.jpg',
+                           link: null,
+                           region: 'Bilbao, Portugal',
+                           region_link: null,
+                           gender: 'm'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
+                           link: null,
+                           region: 'Perth, Australia',
+                           region_link: null,
+                           gender: 'm'
+                       }
+                   ]
+                })
             });
       });
     </script>
