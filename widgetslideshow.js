@@ -2,6 +2,7 @@ function WidgetSlideshow(settings) {
     var currentSlide = -1;
     var previousSlide = -1;
     var slides = [];
+    var wSettings = null;
     
     this.goNext = function() {
         previousSlide = currentSlide;
@@ -13,8 +14,9 @@ function WidgetSlideshow(settings) {
     };
     
     
-    this.draw = function(canvas) {
-    
+    this.draw = function(canvas, widgetSettings) {
+        wSettings = widgetSettings;
+        
         // Add the slides
         var slideHolder = $('<div/>');
         for(var i = 0; i < settings.slides.length; i++) {
@@ -35,8 +37,8 @@ function WidgetSlideshow(settings) {
             //
             var slideTable = $('<table><tr><td/></tr></table>');
             var slideCell = $('td', slideTable);
-            slideCell.css('height', settings.slide_height);
-            slideCell.css('width', settings.width);
+            slideCell.css('height', wSettings.slide_height);
+            slideCell.css('width', wSettings.width);
             slideCell.css('vertical-align', 'middle');
             slideTable.width(canvas.width());
             slideTable.hide();
@@ -49,13 +51,13 @@ function WidgetSlideshow(settings) {
             slideImg.css('display', 'block');
             slideImg.css('margin-left', 'auto');
             slideImg.css('margin-right', 'auto');
-            slideImg.css('width', settings.image_width);
+            slideImg.css('width', wSettings.image_width);
             
             // The image goes inside a link to the user's profile
             var slideLink = $('<a>');
             slideLink.css('display', 'block');
-            slideLink.css('width', settings.width);
-            slideLink.css('height', settings.image_max_height);
+            slideLink.css('width', wSettings.width);
+            slideLink.css('height', wSettings.image_max_height);
             slideLink.css('overflow', 'hidden');
             slideLink.css('outline', 'none');
             slideLink.append(slideImg);
@@ -71,16 +73,16 @@ function WidgetSlideshow(settings) {
             // Create a link to the region that the user is from
             var regionLink = $('<a class="region-link"/>');
             regionLink.css('display', 'block');
-            regionLink.css('width', settings.image_width);
+            regionLink.css('width', wSettings.image_width);
             regionLink.css('margin-left', 'auto');
             regionLink.css('margin-right', 'auto');
             regionLink.css('text-align', 'center');
             regionLink.css('text-decoration', 'none');
             regionLink.css('padding', '5px 0');
             regionLink.css('outline', 'none');
-            regionLink.css('color', settings.color);
-            settings.link_color && regionLink.css('color', settings.link_color);
-            settings.link_font && regionLink.css('font', settings.link_font);
+            regionLink.css('color', wSettings.color);
+            wSettings.link_color && regionLink.css('color', wSettings.link_color);
+            wSettings.link_font && regionLink.css('font', wSettings.link_font);
             
             regionLink.text(region);
             
@@ -109,8 +111,8 @@ function WidgetSlideshow(settings) {
         }
         
         slideHolder.css('overflow', 'hidden');
-        slideHolder.css('width', settings.width);
-        slideHolder.css('height', settings.slide_height);
+        slideHolder.css('width', wSettings.width);
+        slideHolder.css('height', wSettings.slide_height);
         
         canvas.append(slideHolder);
         
@@ -143,12 +145,12 @@ function WidgetSlideshow(settings) {
     
     function getNextSlideIndex(forwards) {
         var filteredIndex = getNextSlideIndexUnfiltered(forwards);
-        if(settings.gender != 'f' && settings.gender != 'm') {
+        if(wSettings.gender != 'f' && wSettings.gender != 'm') {
             return filteredIndex;
         }
         
         for(var slideCount = 0; slideCount < slides.length; slideCount++) {
-            if(slides[filteredIndex].gender == settings.gender) {
+            if(slides[filteredIndex].gender == wSettings.gender) {
                 return filteredIndex;
             }
             filteredIndex = getNextSlideIndexUnfiltered(forwards, filteredIndex);
@@ -185,7 +187,7 @@ function WidgetSlideshow(settings) {
         // Note: The height of the image is not available until it is visible
         function adjustHeight() {
             var img = slides[currentSlide].img;
-            if(img.height() < settings.image_max_height) {
+            if(img.height() < wSettings.image_max_height) {
                 img.parent().css('height', img.height());
             }
         }
@@ -193,12 +195,12 @@ function WidgetSlideshow(settings) {
         
         // Fade out the previous slide and fade in the next one
         if(previousSlide >= 0 && previousSlide != currentSlide) {
-            slides[previousSlide].slide.fadeOut(settings.effectDuration, function() {
-                slides[currentSlide].slide.fadeIn(settings.effectDuration);
+            slides[previousSlide].slide.fadeOut(wSettings.effectDuration, function() {
+                slides[currentSlide].slide.fadeIn(wSettings.effectDuration);
                 adjustHeight();
             });
         } else {
-            slides[currentSlide].slide.fadeIn(settings.effectDuration);
+            slides[currentSlide].slide.fadeIn(wSettings.effectDuration);
             adjustHeight();
         }
     };

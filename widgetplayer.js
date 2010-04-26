@@ -118,7 +118,7 @@ function WidgetPlayer(options) {
     
         applyStyles();
     
-        settings.type.draw(canvas);
+        settings.type.draw(canvas, settings);
         
         goNext();
     }
