@@ -69,6 +69,7 @@ jQuery(document).ready(function($) {
     // Change the title of the widget if the title text is changed in the settings
     $('#title').keyup(function() {
         widget.setTitle($(this).val());
+        updateCode();
     });
     
     
@@ -76,6 +77,7 @@ jQuery(document).ready(function($) {
     $('#has_border').change( function() {
         var checked = $(this).attr('checked');
         widget.setHasBorder(checked);
+        updateCode();
     });
     
     
@@ -83,18 +85,21 @@ jQuery(document).ready(function($) {
     $('#auto').change( function() {
         var checked = $(this).attr('checked');
         widget.setAutoPlay(checked);
+        updateCode();
     });
     
     
     // Adjust play speed according to the selected setting
     $('#duration').change( function() {
         widget.setPlayDuration($(this).val());
+        updateCode();
     });
     
     
     // Adjust gender according to the selected setting
     $('#gender').change( function() {
         widget.setGender($(this).val());
+        updateCode();
     });
     
     
@@ -118,6 +123,7 @@ jQuery(document).ready(function($) {
                 var hexColor = '#'+hex;
                 $('div', selector).css('backgroundColor', hexColor);
                 changeFn(hexColor);
+                updateCode();
             }
         });
         
@@ -135,6 +141,7 @@ jQuery(document).ready(function($) {
         selectorDiv.css('backgroundImage', img);
         selectorDivChild.css('backgroundImage', img);
     }
+    
     
     $('#generalColorSelector').click(function() {
         showPicker($(this), function(color) {
@@ -172,6 +179,44 @@ jQuery(document).ready(function($) {
         $(this).select();
     });
     
+    var generatedId = 'widget-'+Math.random();
+    function updateCode() {
+        var params = [];
+        params.push(['id', generatedId]);
+        params.push(['title', $('#title').val()]);
+        params.push(['auto', $('#auto').attr('checked')]);
+        params.push(['duration', $('#duration').val()]);
+        params.push(['gender', $('#gender').val()]);
+        params.push(['has_border', $('#has_border').attr('checked')]);
+        params.push(['color', getSelectorColor('generalColorSelector')]);
+        params.push(['background_color', getSelectorColor('backgroundSelector')]);
+        params.push(['border_color', getSelectorColor('borderColorSelector')]);
+        params.push(['link_color', getSelectorColor('linkColorSelector')]);
+        params.push(['title_color', getSelectorColor('titleColorSelector')]);
+        
+        var escaped = [];
+        for(var i = 0; i < params.length; i++) {
+            var name = params[i][0];
+            var value = encodeURIComponent(params[i][1]);
+            escaped.push(name + '=' + value);
+        }
+        params = escaped.join('&');
+        
+        var embedCode  = '<script type="text/javascript" language="Javascript" charset="utf-8"';
+        embedCode     += ' src="http://amistarium.com/widget.php?'+params+'">';
+        embedCode     += '</script>';
+        embedCode     += '<div id="'+generatedId+'">';
+        embedCode     += ' <div class="widgetplayer-footer">';
+        embedCode     += '  <a href="http://www.amistarium.com">amistarium.com</a>';
+        embedCode     += ' </div>';
+        embedCode     += '</div>';
+        
+        $('#code').val(embedCode);
+    }
+    
+    function getSelectorColor(selectorId) {
+        return colorToHex($('#'+selectorId).find('> div').css('backgroundColor'));
+    }
     
     function colorToHex(color) {
         if (color.substr(0, 1) === '#') {
@@ -184,6 +229,7 @@ jQuery(document).ready(function($) {
         }
         return "#" + hex(color[1]) + hex(color[2]) + hex(color[3]);
     }
+    
+    
+    updateCode();
 });
-
-
