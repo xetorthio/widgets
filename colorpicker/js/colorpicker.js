@@ -139,6 +139,10 @@
 				current.preview = current.cal.data('colorpicker').livePreview;
 				$(document).bind('mouseup', current, upHue);
 				$(document).bind('mousemove', current, moveHue);
+                
+                var arg = $.extend({}, ev);
+                arg.data = current;
+                moveHue.apply($(document), [arg]);
 			},
 			moveHue = function (ev) {
 				change.apply(
@@ -166,6 +170,10 @@
 				current.preview = current.cal.data('colorpicker').livePreview;
 				$(document).bind('mouseup', current, upSelector);
 				$(document).bind('mousemove', current, moveSelector);
+				
+				var arg = $.extend({}, ev);
+				arg.data = current;
+				moveSelector.apply($(document), [arg]);
 			},
 			moveSelector = function (ev) {
 				change.apply(
