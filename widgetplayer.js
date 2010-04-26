@@ -256,6 +256,7 @@ function WidgetPlayer(options) {
         settings.color = color;
         widget.css('color', color);
         footer.css('color', color);
+        $('a', footer).css('color', color);
     };
     
     this.setBackgroundColor = function(color) {
@@ -290,6 +291,21 @@ function WidgetPlayer(options) {
     this.setAutoPlay = function(auto) {
         setPlaying(auto);
     };
+    
+    
+    //
+    // These functions act on the widget object itself
+    //
+    this.setLinkColor = function(color) {
+        settings.link_color = color;
+        settings.type.setLinkColor && settings.type.setLinkColor(color);
+    };
+    
+    this.setGender = function(gender) {
+        settings.gender = gender;
+        settings.type.setGender && settings.type.setGender(gender);
+    };
+    
     
     init();
 }

@@ -3,6 +3,13 @@ function WidgetSlideshow(settings) {
     var previousSlide = -1;
     var slides = [];
     var wSettings = null;
+    var canvas = null;
+    
+    
+    this.setLinkColor = function(color) {
+        $('.widgetslideshow-regionlink', canvas).css('color', color);
+    };
+    
     
     this.goNext = function() {
         previousSlide = currentSlide;
@@ -14,7 +21,8 @@ function WidgetSlideshow(settings) {
     };
     
     
-    this.draw = function(canvas, widgetSettings) {
+    this.draw = function(widgetCanvas, widgetSettings) {
+        canvas = widgetCanvas;
         wSettings = widgetSettings;
         
         // Add the slides
@@ -71,7 +79,7 @@ function WidgetSlideshow(settings) {
             
             
             // Create a link to the region that the user is from
-            var regionLink = $('<a class="region-link"/>');
+            var regionLink = $('<a class="widgetslideshow-regionlink"/>');
             regionLink.css('display', 'block');
             regionLink.css('width', wSettings.image_width);
             regionLink.css('margin-left', 'auto');

@@ -1,0 +1,131 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 12px arial;
+}
+
+#header {
+  background: url(images/header-background.png) repeat-x;
+}
+#header img {
+  margin-left: 60px;
+  margin-right: auto;
+}
+
+#footer {
+  background: url(images/footer-background.png) repeat-x;
+}
+#footer img {
+  margin-left: 60px;
+  margin-right: auto;
+}
+
+
+.left, .middle, .top {
+  vertical-align: top;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
+
+table.content {
+  width: 90%;
+  margin: 20px 60px;
+}
+table.content td {
+  vertical-align: top;
+}
+
+.settings-column {
+}
+
+.colors-column {
+}
+
+.widget-column {
+}
+
+
+#widget-box {
+  margin-left: auto;
+  margin-right: auto;
+  width: 210px;
+}
+
+
+.section {
+  float: left;
+  clear: both;
+  background-color: #DDDDDD;
+  border: 1px solid #999999;
+  -moz-border-radius: 5px; -webkit-border-radius: 5px;
+  padding: 15px;
+  margin: 0 0 20px 0;
+}
+
+.section .field {
+  float: left;
+  clear: both;
+  margin: 5px 0;
+}
+.section label {
+  width: 80px;
+  float: left;
+}
+.section .field-value {
+  float: left;
+}
+.section .field .field-input {
+  width: 100px;
+}
+.section .field select.field-input {
+  width: 107px;
+}
+
+.colors .field {
+  margin: 0 0 10px 0;
+  width: 130px;
+}
+.colors label {
+  padding-top: 5px;
+  width: 90px;
+}
+
+.colorSelector {
+  float: left;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: url(images/colorPicker.png);
+}
+.colorSelector div {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 30px;
+  height: 30px;
+  background: url(images/colorPicker.png) center;
+}
+
+.colorControls {
+  float: left;
+}
+
+.code-box textarea {
+  width: 100px;
+  height: 225px;
+}
+
+.picker {
+  float: left;
+  margin: 5px 0 0 0;
+  padding: 0 10px;
+  clear: both;
+}

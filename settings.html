@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Widget Settings</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="settings.css" charset="utf-8" ></link>
+
+    <script type="text/javascript" language="Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" language="Javascript" charset="utf-8" src="widgetplayer.js"></script>
+    <script type="text/javascript" language="Javascript" charset="utf-8" src="widgetslideshow.js"></script>
+    <script type="text/javascript" language="Javascript" charset="utf-8" src="settings.js"></script>
+    <script type="text/javascript" language="Javascript" charset="utf-8" src="colorpicker/js/colorpicker.js"></script>
+    <link rel="stylesheet" media="screen" type="text/css" href="colorpicker/css/colorpicker.css" />
+  </head>
+  <body>
+  
+    <div id="header"><img src="images/header.png"></div>
+    
+    <table class="content" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="settings-column">
+          
+          <div class="choose-widget section">
+            <h3>1. Choose Widget Type</h3>
+            
+            <div class="field">
+              <label>Widget Type</label>
+              <div class="field-value">
+                <select class="field-input">
+                  <option value="slide">Slide</option>
+                  <option value="feed">Feed</option>
+                  <option value="gallery">Gallery</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="settings section">
+            <h3>2. Settings</h3>
+            
+            <div class="field">
+              <label>Title</label>
+              <div class="field-value">
+                <input type="text" name="title" id="title" value="Photo of the Day" class="field-input"/>
+              </div>
+            </div>
+            
+            <div class="field">
+              <label>Show border</label>
+              <div class="field-value">
+                <input type="checkbox" name="has_border" id="has_border"/>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Auto-play</label>
+              <div class="field-value">
+                <input type="checkbox" name="auto" id="auto" checked="checked"/>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Play speed</label>
+              <div class="field-value">
+                <select name="duration" id="duration" class="field-input">
+                  <option value="12">Slow</option>
+                  <option value="10">Extra-slow</option>
+                  <option value="8" selected="true">Medium</option>
+                  <option value="6">Medium-fast</option>
+                  <option value="4">Fast</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="field">
+              <label>Gender</label>
+              <div class="field-value">
+                <select name="gender" id="gender" class="field-input">
+                  <option value="f" selected="true">Female</option>
+                  <option value="m">Male</option>
+                  <option value="b">Both</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </td>
+        
+        
+        <td class="colors-column">
+          <div class="colors section">
+            <h3>3. Colors</h3>
+            
+            <div class="colorControls">
+              <div class="field">
+                <label>Text Color</label>
+                <div class="colorSelector" id="generalColorSelector">
+                  <div style="background-color: rgb(255, 255, 255);"></div>
+                </div>
+              </div>
+              
+              <div class="field">
+                <label>Title Color</label>
+                <div class="colorSelector" id="titleColorSelector">
+                  <div style="background-color: rgb(255, 255, 255);"></div>
+                </div>
+              </div>
+              
+              <div class="field">
+                <label>Region Link Color</label>
+                <div class="colorSelector" id="linkColorSelector">
+                  <div style="background-color: rgb(255, 255, 255);"></div>
+                </div>
+              </div>
+  
+              <div class="field">
+                <label>Background Color</label>
+                <div class="colorSelector" id="backgroundSelector">
+                  <div style="background-color: rgb(0, 0, 0);"></div>
+                </div>
+              </div>
+              
+              <div class="field">
+                <label>Border Color</label>
+                <div class="colorSelector" id="borderColorSelector">
+                  <div style="background-color: rgb(0, 0, 0);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        
+        
+        <td class="code-column">
+          <div class="code section">
+            <h3>4. Embed Code</h3>
+            
+            <div class="code-box">
+              <textarea id="code">
+<script type="text/javascript" language="Javascript" charset="utf-8" src="http://amistarium.com/widget/amistarium-widget-1234.js"></script>
+<div id="amistarium-widget-1234">  
+</div>
+<div id="amistarium-widget-1234-footer">
+  <a href="http://www.amistarium.com">amistarium.com</a>
+</div>
+              </textarea>
+            </div>
+          </div>
+        </td>
+        
+        
+        <td class="widget-column">
+          <div id="widget-box">
+            <div id="widget-settings">
+              <div class="widgetplayer-footer">
+                <a href="http://amistarium.com">amistarium.com</a>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    
+    <div id="footer"><img src="images/footer.png"></div>
+    
+  </body>
+</html>
