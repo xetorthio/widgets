@@ -101,6 +101,8 @@ function WidgetNewsFeed(settings) {
             // Create the name that link to the user's profile
             var nameLink = $('<a>');
             nameLink.css('display', 'block');
+            nameLink.css('margin-top', '5px');
+            nameLink.css('margin-left', '5px');
             nameLink.css('outline', 'none');
             nameLink.css('text-decoration', 'none');
             nameLink.css('color', wSettings.color);
@@ -124,6 +126,7 @@ function WidgetNewsFeed(settings) {
             regionLink.css('margin-right', 'auto');
             regionLink.css('text-decoration', 'none');
             regionLink.css('padding', '5px 0');
+            regionLink.css('margin-left', '5px');
             regionLink.css('outline', 'none');
             regionLink.css('color', wSettings.color);
             regionLink.css('cursor', 'pointer');
@@ -158,31 +161,43 @@ function WidgetNewsFeed(settings) {
         return entries[currentEntry].img.attr('complete');
     }
     
-    this.show = function(){
-        var pos = forward ? 'first' : 'last';
-        var li = $('li:'+pos, feedList);
-        var last = $('<li>'+li.html()+'</li>');
-        last.css('display', 'block');
-        last.css('padding', 0);
-        last.css('margin-right', 3);
-        last.css('margin-bottom', 3);
-        last.css('margin-left', -37);
-        last.css('border', 0);
-        last.css('outline', 0);
-        last.css('height', wSettings.image_height+6);
-        last.css('overflow', 'hidden');
-        if(currentEntry % 2 != 0) {
-            last.css('background', wSettings.alternative_background);
-        }
-        
+    this.show = function() {
         if(forward) {
-            li.animate({'margin-top': -li.height()}, wSettings.effectDuration, function(){$(this).remove();});
-            last.css('margin-top', 3);
-            feedList.append(last);
+            var li = $('li:first', feedList);
+            var marginTop = li.css('margin-top');
+            li.animate({'margin-top': -li.height()}, wSettings.effectDuration, function() {
+                li.hide();
+                feedList.append(li);
+                drawAlternateBackground();
+                li.css('margin-top', marginTop);
+                li.show();
+            });
         } else {
-            last.css('margin-top', -(wSettings.image_height+6));
-            feedList.prepend(last);
-            last.animate({'margin-top': 3}, wSettings.effectDuration, function(){li.remove();});
+            var li = $('li:last', feedList);
+            var marginTop = li.css('margin-top');
+            li.hide();
+            li.css('margin-top', -li.height());
+            feedList.prepend(li);
+            drawAlternateBackground();
+            li.show();
+            li.animate({'margin-top': marginTop}, wSettings.effectDuration);
         }
     };
+    
+    /**
+     * Paints the background alternating colours
+     */
+    function drawAlternateBackground() {
+        var even = feedList.find('li:eq(1)').css('background');
+        var odd = feedList.find('li:eq(2)').css('background');
+        var i = 0;
+        feedList.find('li').each(function() {
+            if(i % 2 == 0) {
+                $(this).css('background', odd);
+            } else {
+                $(this).css('background', even);
+            }
+            i++;
+        });
+    }
 }
