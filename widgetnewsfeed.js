@@ -1,14 +1,24 @@
 function WidgetNewsFeed(settings) {
     var currentEntry = -1;
+    var forward = true;
     var entries = [];
-    var feedHolder = $('<div/>');
     var wSettings = null;
+    var feedHolder = $('<div/>');
+    var feedList = $('<ul/>');
     
     this.goNext = function() {
-      currentEntry = (currentEntry+1) % settings.entries.length;
+        forward=true;
+        currentEntry++;
+        if(currentEntry >= entries.length) {
+            currentEntry = 0;
+        }
     };
     this.goBack = function() {
-        currentEntry = Math.abs((currentEntry-1) % settings.entries.length);
+        forward=false;
+        currentEntry--;
+        if(currentEntry == -1) {
+            currentEntry = entries.length-1;
+        }
     };
     
     
@@ -16,7 +26,6 @@ function WidgetNewsFeed(settings) {
         wSettings = widgetSettings;
     
         // Add the entries
-        var feedList = $('<ul/>');
         feedList.css('height', wSettings.slide_height);
         feedList.css('margin-left', 0);
         feedList.css('list-style', 'none');
@@ -126,6 +135,42 @@ function WidgetNewsFeed(settings) {
     }
     
     this.show = function(){
-        feedHolder.scrollTo(entries[currentEntry].entry, wSettings.effectDuration, {axis: 'y', margin:true});
+      if(forward) {
+            var li = $('li:first', feedList).html();
+            $('li:first', feedList).animate({'margin-top': -$('li:first', feedList).height()}, wSettings.effectDuration, function(){$(this).remove();});
+            last = $('<li>'+li+'</li>');
+            last.css('display', 'block');
+            last.css('padding', 0);
+            last.css('margin-top', 3);
+            last.css('margin-right', 3);
+            last.css('margin-bottom', 3);
+            last.css('margin-left', -37);
+            last.css('border', 0);
+            last.css('outline', 0);
+            last.css('height', wSettings.image_height+6);
+            last.css('overflow', 'hidden');
+            if(currentEntry%2!=0) {
+                last.css('background', wSettings.alternative_background);
+            }
+            feedList.append(last);
+          } else {
+            var li = $('li:last', feedList).html();
+            last = $('<li>'+li+'</li>');
+            last.css('display', 'block');
+            last.css('padding', 0);
+            last.css('margin-top', -(wSettings.image_height+6));
+            last.css('margin-right', 3);
+            last.css('margin-bottom', 3);
+            last.css('margin-left', -37);
+            last.css('border', 0);
+            last.css('outline', 0);
+            last.css('height', wSettings.image_height+6);
+            if(currentEntry%2==0) {
+                last.css('background', wSettings.alternative_background);
+            }
+            last.css('overflow', 'hidden');
+            feedList.prepend(last);
+            last.animate({'margin-top': 3}, wSettings.effectDuration, function(){$('li:last', feedList).remove();});
+        }
     };
 }
