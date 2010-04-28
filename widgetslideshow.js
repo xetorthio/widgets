@@ -1,4 +1,5 @@
 function WidgetSlideshow(settings) {
+    var that = this;
     var currentSlide = -1;
     var previousSlide = -1;
     var slides = [];
@@ -24,6 +25,14 @@ function WidgetSlideshow(settings) {
     this.draw = function(widgetCanvas, widgetSettings) {
         canvas = widgetCanvas;
         wSettings = widgetSettings;
+        that.redraw();
+    }
+    
+    this.redraw = function() {
+        canvas.empty();
+        currentSlide = -1;
+        previousSlide = -1;
+        slides = [];
         
         // Add the slides
         var slideHolder = $('<div/>');

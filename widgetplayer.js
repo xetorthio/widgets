@@ -248,6 +248,7 @@ function WidgetPlayer(options) {
     //
     
     this.goNext = goNext;
+    this.redraw = settings.type.redraw;
     
     this.setTitle = function(title) {
         settings.title = title;

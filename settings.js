@@ -164,6 +164,7 @@ jQuery(document).ready(function($) {
     // When the user changes the widget type, change the displayed widget
     $('#widget_type').change(function() {
         setSelectedWidget();
+        widget.redraw();
         showSelectedWidget();
     });
     
@@ -271,13 +272,13 @@ jQuery(document).ready(function($) {
                    region_link: null,
                    gender: 'f'
                }, {
-                   photo: 'http://static05.amistarium.com/img-es-es-/2010/4/13/mdn-1128601131095215.jpg',
+                   photo: 'http://static05.amistarium.com/img-es-es-/2010/4/17/mdn-1516497091098796.jpg',
                    link: null,
                    region: 'Madrid, España',
                    region_link: null,
                    gender: 'f'
                }, {
-                   photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1890168181102365.jpg',
+                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-2450736691107749.jpg',
                    link: null,
                    region: 'Bilbao, Portugal',
                    region_link: null,

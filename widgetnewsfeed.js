@@ -47,6 +47,8 @@ function WidgetNewsFeed(settings) {
         feedHolder.empty();
         feedList.empty();
         canvas.empty();
+        currentEntry = -1;
+        entries = [];
         
         // Add the entries
         feedList.css('height', wSettings.slide_height);
