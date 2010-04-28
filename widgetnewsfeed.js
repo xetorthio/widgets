@@ -34,7 +34,8 @@ function WidgetNewsFeed(settings) {
             var entrySettings = settings.entries[i];
 
             //bypass content not of the specified gender
-            if(entrySettings.gender != wSettings.gender) {
+            if((wSettings.gender == 'm' || wSettings.gender == 'f') &&
+                    entrySettings.gender != wSettings.gender) {
               continue;
             }
             n++;
@@ -61,18 +62,24 @@ function WidgetNewsFeed(settings) {
             if(n%2==0) {
               entryHolder.css('background', wSettings.alternative_background);
             }
-          
+            
+            
             // Create the image
             var entryImg = $('<img src="'+photo+'"/>');
             entryImg.data('slide-index', i);
             entryImg.css('border', 'none');
-            entryImg.css('display', 'block');
-            entryImg.css('float', 'right');
-            entryImg.css('margin', 3);
-            entryImg.css('height', wSettings.image_height);
             entryImg.css('width', wSettings.image_width);
             entryImg.css('overflow', 'hidden');
-            entryHolder.append(entryImg);
+            
+            var entryImgCrop = $('<div/>');
+            entryImgCrop.css('height', wSettings.image_height);
+            entryImgCrop.css('width', wSettings.image_width);
+            entryImgCrop.css('overflow', 'hidden');
+            entryImgCrop.css('float', 'right');
+            entryImgCrop.css('margin', 3);
+            entryImgCrop.append(entryImg);
+            entryHolder.append(entryImgCrop);
+            
             
             // Create the name that link to the user's profile
             var nameLink = $('<a>');
