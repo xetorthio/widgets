@@ -130,6 +130,7 @@ jQuery(document).ready(function($) {
     function updateCode() {
         var params = [];
         params.push(['id', generatedId]);
+        params.push(['type', $('#widget_type').val()]);
         params.push(['title', $('#title').val()]);
         params.push(['auto', $('#auto').attr('checked')]);
         params.push(['duration', $('#duration').val()]);
@@ -137,6 +138,7 @@ jQuery(document).ready(function($) {
         params.push(['has_border', $('#has_border').attr('checked')]);
         params.push(['color', getSelectorColor('generalColorSelector')]);
         params.push(['background_color', getSelectorColor('backgroundSelector')]);
+        params.push(['alternative_color', getSelectorColor('alternativeBackgroundSelector')]);
         params.push(['border_color', getSelectorColor('borderColorSelector')]);
         params.push(['link_color', getSelectorColor('linkColorSelector')]);
         params.push(['title_color', getSelectorColor('titleColorSelector')]);
