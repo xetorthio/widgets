@@ -114,6 +114,12 @@ jQuery(document).ready(function($) {
         });
     });
     
+    $('#alternativeBackgroundSelector').click(function() {
+        showPicker($(this), function(color) {
+            widget.setAlternativeColor(color);
+        });
+    });
+    
     
     // When the user clicks on the code box, select all the text
     $('#code').focus( function() {
@@ -166,6 +172,8 @@ jQuery(document).ready(function($) {
         $('#widgetNewsFeed').hide();
         $('#widgetGallery').hide();
         
+        $('#alternativeBackgroundSelectorBox').hide();
+        
         var widgetType = $('#widget_type').val();
         switch(widgetType) {
             case 'slide':
@@ -173,6 +181,7 @@ jQuery(document).ready(function($) {
             break;
             case 'feed':
                 $('#widgetNewsFeed').fadeIn();
+                $('#alternativeBackgroundSelectorBox').show();
             break;
             case 'gallery':
                 $('#widgetGallery').fadeIn();

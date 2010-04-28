@@ -10,9 +10,16 @@ function WidgetNewsFeed(settings) {
     var feedList = $('<ul/>');
     
     
+    
     this.setGender = function(gender) {
+        // The gender has already been set in the settings before this function
+        // is called, so all we need to do is redraw
         that.redraw();
     };
+    
+    this.setAlternativeColor = function(color) {
+        drawAlternateBackground('none', color);
+    }
     
     
     this.goNext = function() {
@@ -187,9 +194,13 @@ function WidgetNewsFeed(settings) {
     /**
      * Paints the background alternating colours
      */
-    function drawAlternateBackground() {
-        var even = feedList.find('li:eq(1)').css('background');
-        var odd = feedList.find('li:eq(2)').css('background');
+    function drawAlternateBackground(even, odd) {
+        // Even and odd default to what's already in the ul element
+        if(typeof even == 'undefined' && typeof odd == 'undefined') {
+            var even = feedList.find('li:eq(1)').css('background');
+            var odd = feedList.find('li:eq(2)').css('background');
+        }
+        
         var i = 0;
         feedList.find('li').each(function() {
             if(i % 2 == 0) {

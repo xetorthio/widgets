@@ -266,6 +266,11 @@ function WidgetPlayer(options) {
         widget.css('background', color);
     };
     
+    this.setAlternativeColor = function(color) {
+        settings.alternative_background = color;
+        settings.type.setAlternativeColor && settings.type.setAlternativeColor(color);
+    };
+    
     this.setTitleColor = function(color) {
         settings.title_color = color;
         header.css('color', color);
