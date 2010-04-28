@@ -59,6 +59,9 @@ table.content td {
   width: 210px;
 }
 
+#widgetSlideshow, #widgetNewsFeed {
+  display: none;
+}
 
 .section {
   float: left;

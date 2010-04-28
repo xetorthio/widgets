@@ -9,6 +9,7 @@
     <script type="text/javascript" language="Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" language="Javascript" charset="utf-8" src="widgetplayer.js"></script>
     <script type="text/javascript" language="Javascript" charset="utf-8" src="widgetslideshow.js"></script>
+    <script type="text/javascript" language="Javascript" charset="utf-8" src="widgetnewsfeed.js"></script>
     <script type="text/javascript" language="Javascript" charset="utf-8" src="settings.js"></script>
     <script type="text/javascript" language="Javascript" charset="utf-8" src="colorpicker/js/colorpicker.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" href="colorpicker/css/colorpicker.css" />
@@ -27,7 +28,7 @@
             <div class="field">
               <label>Widget Type</label>
               <div class="field-value">
-                <select class="field-input">
+                <select class="field-input" id="widget_type">
                   <option value="slide">Slide</option>
                   <option value="feed">Feed</option>
                   <option value="gallery">Gallery</option>
@@ -146,13 +147,19 @@
         
         <td class="widget-column">
           <div id="widget-box">
-            <div id="widget-settings">
+            <div id="widgetSlideshow">
               <div class="widgetplayer-footer">
                 <a href="http://amistarium.com">amistarium.com</a>
               </div>
             </div>
+            <div id="widgetNewsFeed">
+              <div class="widgetplayer-footer">
+                <a href="http://google.com">amistarium.com</a>
+              </div>
+            </div>
           </div>
         </td>
+        
       </tr>
     </table>
     
