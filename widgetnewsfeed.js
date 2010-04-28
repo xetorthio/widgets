@@ -1,5 +1,4 @@
 function WidgetNewsFeed(settings) {
-    // TODO: Set alternate color
     var that = this;
     var currentEntry = -1;
     var forward = true;
