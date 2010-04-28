@@ -247,6 +247,8 @@ function WidgetPlayer(options) {
     // Public functions
     //
     
+    this.goNext = goNext;
+    
     this.setTitle = function(title) {
         settings.title = title;
         header.text(title);

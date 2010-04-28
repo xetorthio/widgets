@@ -38,6 +38,7 @@ jQuery(document).ready(function($) {
     $('#gender').change( function() {
         widget.setGender($(this).val());
         updateCode();
+        widget.goNext();
     });
     
     
@@ -177,6 +178,8 @@ jQuery(document).ready(function($) {
                 $('#widgetGallery').fadeIn();
             break;
         }
+        
+        setAllSettings();
     }
 
     function setSelectedWidget() {
@@ -194,6 +197,23 @@ jQuery(document).ready(function($) {
         }
     }
     
+    function setAllSettings() {
+        if(!widget) {
+            return;
+        }
+        widget.setTitle($('#title').val());
+        widget.setHasBorder($('#has_border').attr('checked'));
+        widget.setAutoPlay($('#auto').attr('checked'));
+        widget.setPlayDuration($('#duration').val());
+        widget.setGender($('#gender').val());
+        widget.setGeneralColor(getSelectorColor('generalColorSelector'));
+        widget.setBackgroundColor(getSelectorColor('backgroundSelector'));
+        widget.setBorderColor(getSelectorColor('borderColorSelector'));
+        widget.setLinkColor(getSelectorColor('linkColorSelector'));
+        widget.setTitleColor(getSelectorColor('titleColorSelector'));
+    }
+    
+    
     
     // The first widget must be visible when it is created, otherwise some
     // of the image calculations won't work (because they are invalid if the
@@ -208,6 +228,11 @@ jQuery(document).ready(function($) {
         duration: $('#duration').val(),
         gender: $('#gender').val(),
         has_border: $('#has_border').attr('checked'),
+        color: getSelectorColor('generalColorSelector'),
+        border_color: getSelectorColor('borderColorSelector'),
+        background: getSelectorColor('backgroundSelector'),
+        link_color: getSelectorColor('linkColorSelector'),
+        title_color: getSelectorColor('titleColorSelector'),
         messages: {
             back: '< Prev.',
             next: 'Next. >'
@@ -266,6 +291,11 @@ jQuery(document).ready(function($) {
         duration: $('#duration').val(),
         gender: $('#gender').val(),
         has_border: $('#has_border').attr('checked'),
+        color: getSelectorColor('generalColorSelector'),
+        border_color: getSelectorColor('borderColorSelector'),
+        background: getSelectorColor('backgroundSelector'),
+        link_color: getSelectorColor('linkColorSelector'),
+        title_color: getSelectorColor('titleColorSelector'),
         messages: {
             back: '< Prev.',
             next: 'Next. >'

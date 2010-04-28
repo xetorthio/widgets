@@ -1,10 +1,19 @@
 function WidgetNewsFeed(settings) {
+    // TODO: Set alternate color
+    var that = this;
     var currentEntry = -1;
     var forward = true;
     var entries = [];
     var wSettings = null;
+    var canvas = null;
     var feedHolder = $('<div/>');
     var feedList = $('<ul/>');
+    
+    
+    this.setGender = function(gender) {
+        that.redraw();
+    };
+    
     
     this.goNext = function() {
         forward=true;
@@ -22,9 +31,17 @@ function WidgetNewsFeed(settings) {
     };
     
     
-    this.draw = function(canvas, widgetSettings) {
+    this.draw = function(widgetCanvas, widgetSettings) {
         wSettings = widgetSettings;
+        canvas = widgetCanvas;
+        that.redraw();
+    }
     
+    this.redraw = function() {
+        feedHolder.empty();
+        feedList.empty();
+        canvas.empty();
+        
         // Add the entries
         feedList.css('height', wSettings.slide_height);
         feedList.css('margin-left', 0);
@@ -142,42 +159,30 @@ function WidgetNewsFeed(settings) {
     }
     
     this.show = function(){
-      if(forward) {
-            var li = $('li:first', feedList).html();
-            $('li:first', feedList).animate({'margin-top': -$('li:first', feedList).height()}, wSettings.effectDuration, function(){$(this).remove();});
-            last = $('<li>'+li+'</li>');
-            last.css('display', 'block');
-            last.css('padding', 0);
+        var pos = forward ? 'first' : 'last';
+        var li = $('li:'+pos, feedList);
+        var last = $('<li>'+li.html()+'</li>');
+        last.css('display', 'block');
+        last.css('padding', 0);
+        last.css('margin-right', 3);
+        last.css('margin-bottom', 3);
+        last.css('margin-left', -37);
+        last.css('border', 0);
+        last.css('outline', 0);
+        last.css('height', wSettings.image_height+6);
+        last.css('overflow', 'hidden');
+        if(currentEntry % 2 != 0) {
+            last.css('background', wSettings.alternative_background);
+        }
+        
+        if(forward) {
+            li.animate({'margin-top': -li.height()}, wSettings.effectDuration, function(){$(this).remove();});
             last.css('margin-top', 3);
-            last.css('margin-right', 3);
-            last.css('margin-bottom', 3);
-            last.css('margin-left', -37);
-            last.css('border', 0);
-            last.css('outline', 0);
-            last.css('height', wSettings.image_height+6);
-            last.css('overflow', 'hidden');
-            if(currentEntry%2!=0) {
-                last.css('background', wSettings.alternative_background);
-            }
             feedList.append(last);
-          } else {
-            var li = $('li:last', feedList).html();
-            last = $('<li>'+li+'</li>');
-            last.css('display', 'block');
-            last.css('padding', 0);
+        } else {
             last.css('margin-top', -(wSettings.image_height+6));
-            last.css('margin-right', 3);
-            last.css('margin-bottom', 3);
-            last.css('margin-left', -37);
-            last.css('border', 0);
-            last.css('outline', 0);
-            last.css('height', wSettings.image_height+6);
-            if(currentEntry%2==0) {
-                last.css('background', wSettings.alternative_background);
-            }
-            last.css('overflow', 'hidden');
             feedList.prepend(last);
-            last.animate({'margin-top': 3}, wSettings.effectDuration, function(){$('li:last', feedList).remove();});
+            last.animate({'margin-top': 3}, wSettings.effectDuration, function(){li.remove();});
         }
     };
 }
