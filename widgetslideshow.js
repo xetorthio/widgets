@@ -198,7 +198,7 @@ function WidgetSlideshow(settings) {
         return slides[currentSlide].img.attr('complete');
     };
     
-    this.show = function(){
+    this.show = function() {
         // If the image height is smaller than the maximum height, crop
         // the image at its exact height
         // Note: The height of the image is not available until it is visible
