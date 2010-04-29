@@ -8,6 +8,7 @@
     <script type="text/javascript" language="Javascript" src="widgetplayer.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetslideshow.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetnewsfeed.js"></script>
+    <script type="text/javascript" language="Javascript" src="widgetphotogallery.js"></script>
     
     <script type="text/javascript" language="Javascript">
       jQuery(document).ready(function($) {
@@ -58,6 +59,97 @@
                            gender: 'm'
                        }, {
                            photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
+                           link: null,
+                           region: 'Perth, Australia',
+                           region_link: null,
+                           gender: 'f'
+                       }
+                   ]
+                })
+              });
+            var w3 = new WidgetPlayer({
+                id: 'widgetPhotoGallery',
+                title: 'PhotoGallery Widget',
+                messages: {
+                    back: '< Prev.',
+                    next: 'Next. >'
+                },
+                images: {
+                    play: 'images/play.png',
+                    pause: 'images/pause.png'
+                },
+                auto: true,
+                duration: 2,
+                type: new WidgetPhotoGallery({
+                    entries: [
+                       {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1138905461095299.jpg',
+                           link: null,
+                           region: 'Buenos Aires, Argentina',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1897181551102475.jpg',
+                           link: null,
+                           region: 'Harare, Zimbabwe',
+                           region_link: null,
+                           gender: 'm'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1137618641095294.jpg',
+                           link: null,
+                           region: 'Seattle, United States',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static05.amistarium.com/img-es-es-/2010/4/13/pqn-1128601131095215.jpg',
+                           link: null,
+                           region: 'Madrid, Espa√±a',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1890168181102365.jpg',
+                           link: null,
+                           region: 'Bilbao, Portugal',
+                           region_link: null,
+                           gender: 'm'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/pqn-4196380081012921.jpg',
+                           link: null,
+                           region: 'Perth, Australia',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1138905461095299.jpg',
+                           link: null,
+                           region: 'Buenos Aires, Argentina',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1897181551102475.jpg',
+                           link: null,
+                           region: 'Harare, Zimbabwe',
+                           region_link: null,
+                           gender: 'm'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1137618641095294.jpg',
+                           link: null,
+                           region: 'Seattle, United States',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static05.amistarium.com/img-es-es-/2010/4/13/pqn-1128601131095215.jpg',
+                           link: null,
+                           region: 'Madrid, Espa√±a',
+                           region_link: null,
+                           gender: 'f'
+                       }, {
+                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1890168181102365.jpg',
+                           link: null,
+                           region: 'Bilbao, Portugal',
+                           region_link: null,
+                           gender: 'm'
+                       }, {
+                           photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/pqn-4196380081012921.jpg',
                            link: null,
                            region: 'Perth, Australia',
                            region_link: null,
@@ -172,6 +264,7 @@
                    ]
                 })
             });
+
       });
     </script>
   </head>
@@ -180,6 +273,9 @@
         <div><a href="http://google.com" class="widgetplayer-footer">google.com</a></div>
       </div>
       <div id="widgetNewsFeed">
+        <div><a href="http://google.com" class="widgetplayer-footer">google.com</a></div>
+      </div>
+      <div id="widgetPhotoGallery">
         <div><a href="http://google.com" class="widgetplayer-footer">google.com</a></div>
       </div>
   </body>
