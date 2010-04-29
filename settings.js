@@ -126,6 +126,9 @@ jQuery(document).ready(function($) {
         $(this).select();
     });
     
+    /**
+     * Update the embed code box
+     */
     var generatedId = 'widget-'+Math.random();
     function updateCode() {
         var params = [];
@@ -163,13 +166,35 @@ jQuery(document).ready(function($) {
         $('#code').val(embedCode);
     }
     
-    // When the user changes the widget type, change the displayed widget
-    $('#widget_type').change(function() {
-        setSelectedWidget();
-        widget.redraw();
-        showSelectedWidget();
-    });
     
+    // When the user changes the widget type, change the displayed widget
+    $('#widget_type').change(widgetTypeChange);
+    
+    
+    
+    /**
+     * If the newly selected widget is not already playing, advance it
+     * forward
+     */
+    function startSelectedWidget() {
+        if( ! $('#auto').attr('checked') ) {
+            widget.goNext();
+        }
+    }
+    
+    /**
+     * Puts all widgets into the paused state
+     */
+    function pauseAllWidgets() {
+        slideshowWidget.setAutoPlay(false);
+        feedWidget.setAutoPlay(false);
+        galleryWidget.setAutoPlay(false);
+    }
+    
+    /**
+     * Hides all the widgets and then show the selected widget, and its
+     * associated settings
+     */
     function showSelectedWidget() {
         $('#widgetSlideshow').hide();
         $('#widgetNewsFeed').hide();
@@ -190,15 +215,16 @@ jQuery(document).ready(function($) {
                 $('#widgetPhotoGallery').fadeIn();
             break;
         }
-        
-        setAllSettings();
     }
-
+    
+    /**
+     * Sets which widget is currently selected
+     */
     function setSelectedWidget() {
         var widgetType = $('#widget_type').val();
         switch(widgetType) {
             case 'slide':
-                widget = slideShowWidget;
+                widget = slideshowWidget;
             break;
             case 'feed':
                 widget = feedWidget;
@@ -209,6 +235,10 @@ jQuery(document).ready(function($) {
         }
     }
     
+    /**
+     * Sets all the settings on the current widget to their values in the admin
+     * page.
+     */
     function setAllSettings() {
         if(!widget) {
             return;
@@ -226,353 +256,376 @@ jQuery(document).ready(function($) {
     }
     
     
+    /**
+     * Creates the widgets
+     */
+    function createWidgets() {
+        slideshowWidget = new WidgetPlayer({
+            id: 'widgetSlideshow',
+            title: $('#title').val(),
+            auto: $('#auto').attr('checked'),
+            duration: $('#duration').val(),
+            gender: $('#gender').val(),
+            has_border: $('#has_border').attr('checked'),
+            color: getSelectorColor('generalColorSelector'),
+            border_color: getSelectorColor('borderColorSelector'),
+            background: getSelectorColor('backgroundSelector'),
+            link_color: getSelectorColor('linkColorSelector'),
+            title_color: getSelectorColor('titleColorSelector'),
+            messages: {
+                back: '< Prev.',
+                next: 'Next. >'
+            },
+            images: {
+                play: 'images/play.png',
+                pause: 'images/pause.png'
+            },
+            type: new WidgetSlideshow({
+                slides: [
+                   {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
+                       link: null,
+                       region: 'Buenos Aires, Argentina',
+                       region_link: null,
+                       gender: 'f'
+                   }, {
+                       photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
+                       link: null,
+                       region: 'London, England',
+                       region_link: null,
+                       gender: 'm'
+                   }, {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
+                       link: null,
+                       region: 'Seattle, United States',
+                       region_link: null,
+                       gender: 'f'
+                   }, {
+                       photo: 'http://static05.amistarium.com/img-es-es-/2010/4/17/mdn-1516497091098796.jpg',
+                       link: null,
+                       region: 'Madrid, España',
+                       region_link: null,
+                       gender: 'f'
+                   }, {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-2450736691107749.jpg',
+                       link: null,
+                       region: 'Bilbao, Portugal',
+                       region_link: null,
+                       gender: 'm'
+                   }, {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
+                       link: null,
+                       region: 'Perth, Australia',
+                       region_link: null,
+                       gender: 'm'
+                   }
+               ]
+            })
+        });
+        
+        feedWidget = new WidgetPlayer({
+            id: 'widgetNewsFeed',
+            title: $('#title').val(),
+            auto: $('#auto').attr('checked'),
+            duration: $('#duration').val(),
+            gender: $('#gender').val(),
+            has_border: $('#has_border').attr('checked'),
+            color: getSelectorColor('generalColorSelector'),
+            border_color: getSelectorColor('borderColorSelector'),
+            background: getSelectorColor('backgroundSelector'),
+            link_color: getSelectorColor('linkColorSelector'),
+            title_color: getSelectorColor('titleColorSelector'),
+            messages: {
+                back: '< Prev.',
+                next: 'Next. >'
+            },
+            images: {
+                play: 'images/play.png',
+                pause: 'images/pause.png'
+            },
+            image_height: 50,
+            image_width: 60,
+            alternative_background: '#333333',
+            type: new WidgetNewsFeed({
+                entries: [
+                   {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1138905461095299.jpg',
+                       link: null,
+                       region: 'Buenos Aires, Argentina',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Juana'
+                   }, {
+                       photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1897181551102475.jpg',
+                       link: null,
+                       region: 'London, England',
+                       region_link: null,
+                       gender: 'm',
+                       name: 'John'
+                   }, {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1137618641095294.jpg',
+                       link: null,
+                       region: 'Seattle, United States',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Francisca'
+                   }, {
+                       photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/pqn-2408352641107401.jpg',
+                       link: null,
+                       region: 'Madrid, España',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Luciana'
+                   }, {
+                       photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1890168181102365.jpg',
+                       link: null,
+                       region: 'Bilbao, Portugal',
+                       region_link: null,
+                       gender: 'm',
+                       name: 'Eduardo'
+                   }, {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/pqn-4196380081012921.jpg',
+                       link: null,
+                       region: 'Perth, Australia',
+                       region_link: null,
+                       gender: 'm',
+                       name: 'Andrew'
+                   }, {
+                       photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/pqn-2411782731107456.jpg',
+                       link: null,
+                       region: 'Madrid, España',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Laura'
+                   }, {
+                       photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2448025811107741.jpg',
+                       link: null,
+                       region: 'Bilbao, Portugal',
+                       region_link: null,
+                       gender: 'm',
+                       name: 'Federico'
+                   }, {
+                       photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/pqn-2428477741107652.jpg',
+                       link: null,
+                       region: 'Perth, Australia',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Gemma'
+                   }, {
+                       photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2417619291107537.jpg',
+                       link: null,
+                       region: 'Madrid, España',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Maria'
+                   }, {
+                       photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/pqn-244741321107738.jpg',
+                       link: null,
+                       region: 'Bilbao, Portugal',
+                       region_link: null,
+                       gender: 'm',
+                       name: 'Mario'
+                   }, {
+                       photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2427440831107638.jpg',
+                       link: null,
+                       region: 'Perth, Australia',
+                       region_link: null,
+                       gender: 'f',
+                       name: 'Sharon'
+                   }
+               ]
+            })
+        });
     
-    // The first widget must be visible when it is created, otherwise some
-    // of the image calculations won't work (because they are invalid if the
-    // image is hidden)
-    showSelectedWidget();
-    
-    
-    slideShowWidget = new WidgetPlayer({
-        id: 'widgetSlideshow',
-        title: $('#title').val(),
-        auto: $('#auto').attr('checked'),
-        duration: $('#duration').val(),
-        gender: $('#gender').val(),
-        has_border: $('#has_border').attr('checked'),
-        color: getSelectorColor('generalColorSelector'),
-        border_color: getSelectorColor('borderColorSelector'),
-        background: getSelectorColor('backgroundSelector'),
-        link_color: getSelectorColor('linkColorSelector'),
-        title_color: getSelectorColor('titleColorSelector'),
-        messages: {
-            back: '< Prev.',
-            next: 'Next. >'
-        },
-        images: {
-            play: 'images/play.png',
-            pause: 'images/pause.png'
-        },
-        type: new WidgetSlideshow({
-            slides: [
-               {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
-                   link: null,
-                   region: 'Buenos Aires, Argentina',
-                   region_link: null,
-                   gender: 'f'
-               }, {
-                   photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
-                   link: null,
-                   region: 'London, England',
-                   region_link: null,
-                   gender: 'm'
-               }, {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
-                   link: null,
-                   region: 'Seattle, United States',
-                   region_link: null,
-                   gender: 'f'
-               }, {
-                   photo: 'http://static05.amistarium.com/img-es-es-/2010/4/17/mdn-1516497091098796.jpg',
-                   link: null,
-                   region: 'Madrid, España',
-                   region_link: null,
-                   gender: 'f'
-               }, {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-2450736691107749.jpg',
-                   link: null,
-                   region: 'Bilbao, Portugal',
-                   region_link: null,
-                   gender: 'm'
-               }, {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
-                   link: null,
-                   region: 'Perth, Australia',
-                   region_link: null,
-                   gender: 'm'
-               }
-           ]
-        })
-    });
-    
-    feedWidget = new WidgetPlayer({
-        id: 'widgetNewsFeed',
-        title: $('#title').val(),
-        auto: $('#auto').attr('checked'),
-        duration: $('#duration').val(),
-        gender: $('#gender').val(),
-        has_border: $('#has_border').attr('checked'),
-        color: getSelectorColor('generalColorSelector'),
-        border_color: getSelectorColor('borderColorSelector'),
-        background: getSelectorColor('backgroundSelector'),
-        link_color: getSelectorColor('linkColorSelector'),
-        title_color: getSelectorColor('titleColorSelector'),
-        messages: {
-            back: '< Prev.',
-            next: 'Next. >'
-        },
-        images: {
-            play: 'images/play.png',
-            pause: 'images/pause.png'
-        },
-        image_height: 50,
-        image_width: 60,
-        alternative_background: '#333333',
-        type: new WidgetNewsFeed({
-            entries: [
-               {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1138905461095299.jpg',
-                   link: null,
-                   region: 'Buenos Aires, Argentina',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Juana'
-               }, {
-                   photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1897181551102475.jpg',
-                   link: null,
-                   region: 'London, England',
-                   region_link: null,
-                   gender: 'm',
-                   name: 'John'
-               }, {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1137618641095294.jpg',
-                   link: null,
-                   region: 'Seattle, United States',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Francisca'
-               }, {
-                   photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/pqn-2408352641107401.jpg',
-                   link: null,
-                   region: 'Madrid, España',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Luciana'
-               }, {
-                   photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1890168181102365.jpg',
-                   link: null,
-                   region: 'Bilbao, Portugal',
-                   region_link: null,
-                   gender: 'm',
-                   name: 'Eduardo'
-               }, {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/pqn-4196380081012921.jpg',
-                   link: null,
-                   region: 'Perth, Australia',
-                   region_link: null,
-                   gender: 'm',
-                   name: 'Andrew'
-               }, {
-                   photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/pqn-2411782731107456.jpg',
-                   link: null,
-                   region: 'Madrid, España',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Laura'
-               }, {
-                   photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2448025811107741.jpg',
-                   link: null,
-                   region: 'Bilbao, Portugal',
-                   region_link: null,
-                   gender: 'm',
-                   name: 'Federico'
-               }, {
-                   photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/pqn-2428477741107652.jpg',
-                   link: null,
-                   region: 'Perth, Australia',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Gemma'
-               }, {
-                   photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2417619291107537.jpg',
-                   link: null,
-                   region: 'Madrid, España',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Maria'
-               }, {
-                   photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/pqn-244741321107738.jpg',
-                   link: null,
-                   region: 'Bilbao, Portugal',
-                   region_link: null,
-                   gender: 'm',
-                   name: 'Mario'
-               }, {
-                   photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2427440831107638.jpg',
-                   link: null,
-                   region: 'Perth, Australia',
-                   region_link: null,
-                   gender: 'f',
-                   name: 'Sharon'
-               }
-           ]
-        })
-    });
-
-    
-    galleryWidget = new WidgetPlayer({
-        id: 'widgetPhotoGallery',
-        title: $('#title').val(),
-        auto: $('#auto').attr('checked'),
-        duration: $('#duration').val(),
-        gender: $('#gender').val(),
-        has_border: $('#has_border').attr('checked'),
-        color: getSelectorColor('generalColorSelector'),
-        border_color: getSelectorColor('borderColorSelector'),
-        background: getSelectorColor('backgroundSelector'),
-        link_color: getSelectorColor('linkColorSelector'),
-        title_color: getSelectorColor('titleColorSelector'),
-        messages: {
-            back: '< Prev.',
-            next: 'Next. >'
-        },
-        images: {
-            play: 'images/play.png',
-            pause: 'images/pause.png'
-        },
-        type: new WidgetPhotoGallery({
-            entries: [
-              {
-                  photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
-                  link: null,
-                  region: 'Buenos Aires, Argentina',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Juana'
-              }, {
-                  photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
-                  link: null,
-                  region: 'London, England',
-                  region_link: null,
-                  gender: 'm',
-                  name: 'John'
-              }, {
-                  photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
-                  link: null,
-                  region: 'Seattle, United States',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Francisca'
-              }, {
-                  photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/mdn-2408352641107401.jpg',
-                  link: null,
-                  region: 'Madrid, España',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Luciana'
-              }, {
-                  photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1890168181102365.jpg',
-                  link: null,
-                  region: 'Bilbao, Portugal',
-                  region_link: null,
-                  gender: 'm',
-                  name: 'Eduardo'
-              }, {
-                  photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
-                  link: null,
-                  region: 'Perth, Australia',
-                  region_link: null,
-                  gender: 'm',
-                  name: 'Andrew'
-              }, {
-                  photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/mdn-2411782731107456.jpg',
-                  link: null,
-                  region: 'Madrid, España',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Laura'
-              }, {
-                  photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2448025811107741.jpg',
-                  link: null,
-                  region: 'Bilbao, Portugal',
-                  region_link: null,
-                  gender: 'm',
-                  name: 'Federico'
-              }, {
-                  photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/mdn-2428477741107652.jpg',
-                  link: null,
-                  region: 'Perth, Australia',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Gemma'
-              }, {
-                  photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2417619291107537.jpg',
-                  link: null,
-                  region: 'Madrid, España',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Maria'
-              }, {
-                  photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-244741321107738.jpg',
-                  link: null,
-                  region: 'Bilbao, Portugal',
-                  region_link: null,
-                  gender: 'm',
-                  name: 'Mario'
-              }, {
-                  photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2427440831107638.jpg',
-                  link: null,
-                  region: 'Perth, Australia',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Sharon'
-              }, {
-                  photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/grd-2544872551108575.jpg',
-                  link: null,
-                  region: 'Roma, Italia',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Gimena'
-              }, {
-                  photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/grd-2534532111108544.jpg',
-                  link: null,
-                  region: 'Mendoza, Argentina',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Clara'
-              }, {
-                  photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/grd-2530927331108534.jpg',
-                  link: null,
-                  region: 'New York, Estados Unidos',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Ofelia'
-              }, {
-                  photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/grd-2523752291108519.jpg',
-                  link: null,
-                  region: 'Santiago, Chile',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Ferula'
-              }, {
-                  photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/grd-250933641108395.jpg',
-                  link: null,
-                  region: 'Lima, Peru',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Agustina'
-              }, {
-                  photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/grd-2506677371108356.jpg',
-                  link: null,
-                  region: 'DF, Mexico',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Gabriella'
-              }, {
-                  photo: 'http://static01.amistarium.com/img-es-es-/2010/4/29/grd-2505777141108339.jpg',
-                  link: null,
-                  region: 'Puerto Rico',
-                  region_link: null,
-                  gender: 'f',
-                  name: 'Telma'
-              }
-          ]
-        })
-    });
+        
+        galleryWidget = new WidgetPlayer({
+            id: 'widgetPhotoGallery',
+            title: $('#title').val(),
+            auto: $('#auto').attr('checked'),
+            duration: $('#duration').val(),
+            gender: $('#gender').val(),
+            has_border: $('#has_border').attr('checked'),
+            color: getSelectorColor('generalColorSelector'),
+            border_color: getSelectorColor('borderColorSelector'),
+            background: getSelectorColor('backgroundSelector'),
+            link_color: getSelectorColor('linkColorSelector'),
+            title_color: getSelectorColor('titleColorSelector'),
+            messages: {
+                back: '< Prev.',
+                next: 'Next. >'
+            },
+            images: {
+                play: 'images/play.png',
+                pause: 'images/pause.png'
+            },
+            type: new WidgetPhotoGallery({
+                entries: [
+                  {
+                      photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
+                      link: null,
+                      region: 'Buenos Aires, Argentina',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Juana'
+                  }, {
+                      photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
+                      link: null,
+                      region: 'London, England',
+                      region_link: null,
+                      gender: 'm',
+                      name: 'John'
+                  }, {
+                      photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
+                      link: null,
+                      region: 'Seattle, United States',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Francisca'
+                  }, {
+                      photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/mdn-2408352641107401.jpg',
+                      link: null,
+                      region: 'Madrid, España',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Luciana'
+                  }, {
+                      photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1890168181102365.jpg',
+                      link: null,
+                      region: 'Bilbao, Portugal',
+                      region_link: null,
+                      gender: 'm',
+                      name: 'Eduardo'
+                  }, {
+                      photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
+                      link: null,
+                      region: 'Perth, Australia',
+                      region_link: null,
+                      gender: 'm',
+                      name: 'Andrew'
+                  }, {
+                      photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/mdn-2411782731107456.jpg',
+                      link: null,
+                      region: 'Madrid, España',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Laura'
+                  }, {
+                      photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2448025811107741.jpg',
+                      link: null,
+                      region: 'Bilbao, Portugal',
+                      region_link: null,
+                      gender: 'm',
+                      name: 'Federico'
+                  }, {
+                      photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/mdn-2428477741107652.jpg',
+                      link: null,
+                      region: 'Perth, Australia',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Gemma'
+                  }, {
+                      photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2417619291107537.jpg',
+                      link: null,
+                      region: 'Madrid, España',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Maria'
+                  }, {
+                      photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-244741321107738.jpg',
+                      link: null,
+                      region: 'Bilbao, Portugal',
+                      region_link: null,
+                      gender: 'm',
+                      name: 'Mario'
+                  }, {
+                      photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2427440831107638.jpg',
+                      link: null,
+                      region: 'Perth, Australia',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Sharon'
+                  }, {
+                      photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/mdn-2544872551108575.jpg',
+                      link: null,
+                      region: 'Roma, Italia',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Gimena'
+                  }, {
+                      photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/mdn-2534532111108544.jpg',
+                      link: null,
+                      region: 'Mendoza, Argentina',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Clara'
+                  }, {
+                      photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/mdn-2530927331108534.jpg',
+                      link: null,
+                      region: 'New York, Estados Unidos',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Ofelia'
+                  }, {
+                      photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/mdn-2523752291108519.jpg',
+                      link: null,
+                      region: 'Santiago, Chile',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Ferula'
+                  }, {
+                      photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/mdn-250933641108395.jpg',
+                      link: null,
+                      region: 'Lima, Peru',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Agustina'
+                  }, {
+                      photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/mdn-2506677371108356.jpg',
+                      link: null,
+                      region: 'DF, Mexico',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Gabriella'
+                  }, {
+                      photo: 'http://static01.amistarium.com/img-es-es-/2010/4/29/mdn-2505777141108339.jpg',
+                      link: null,
+                      region: 'Puerto Rico',
+                      region_link: null,
+                      gender: 'f',
+                      name: 'Telma'
+                  }
+              ]
+            })
+        });
+    }
     
     
+    function widgetTypeChange() {
+        pauseAllWidgets();
+        
+        // Set the newly selected widget to be the current widget
+        setSelectedWidget();
+        
+        // Hide the previous widget and show the newly selected widget
+        // and its associated settings
+        showSelectedWidget();
+        setAllSettings();
+        startSelectedWidget();
+        updateCode();
+    }
     
-    setSelectedWidget();
-    updateCode();
+    function init() {
+        // The first widget must be visible when it is created, otherwise some
+        // of the image calculations won't work (because they are invalid if the
+        // image is hidden)
+        showSelectedWidget();
+        createWidgets();
+        pauseAllWidgets();
+        setSelectedWidget();
+        setAllSettings();
+        startSelectedWidget();
+        updateCode();
+    }
+    
+    init();
 });

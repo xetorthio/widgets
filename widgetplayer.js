@@ -91,27 +91,59 @@ function WidgetPlayer(options) {
     }
     
     
+    var inProgress = false;
     function init() {
         checkRequiredParams(options);
         that.setTitle(settings.title);
         
         back.text(settings.messages.back);
-        back.click(function() {
-            setPlaying(false);
-            goBack();
-        });
-        nav.append(back);
-    
         playPause.click(togglePlay);
-        nav.append(playPause);
-    
         next.text(settings.messages.next);
-        next.click(function() {
-            setPlaying(false);
-            goNext();
+        
+        function guardedAction(action) {
+            // If we're still processing the last action, ignore this action
+            if(inProgress) {
+                return;
+            }
+            inProgress = true;
+            
+            action();
+            
+            // Re-enable actions after a delay
+            setTimeout(function() { inProgress = false; }, settings.effectDuration * 2);
+        }
+        
+        back.click(function() {
+            guardedAction(function() {
+                setPlaying(false);
+                goBack();
+            });
         });
+        next.click(function() {
+            guardedAction(function() {
+                setPlaying(false);
+                goNext();
+            });
+        });
+        
+        
+        // Disable selection of the back and next text
+        function disableSelect(el) {
+            el.attr('unselectable', 'on')
+            .css('MozUserSelect', 'none')
+            .bind('selectstart.ui', function() {
+                return false;
+            });
+        }
+        
+        disableSelect(back);
+        disableSelect(next);
+        
+        
+        nav.append(back);
+        nav.append(playPause);
         nav.append(next);
-    
+        
         widget.prepend(nav);
         widget.prepend(canvas);
         widget.prepend(header);
@@ -300,6 +332,9 @@ function WidgetPlayer(options) {
         setPlaying(auto);
     };
     
+    this.isPlaying = function() {
+        return settings.auto;
+    }
     
     //
     // These functions act on the widget object itself

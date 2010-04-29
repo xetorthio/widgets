@@ -5,8 +5,14 @@ function WidgetPhotoGallery(settings) {
     var wSettings = null;
     var canvas = null;
     var galleryHolder = $('<div/>');
+    var galleryGender = null;
     
     this.setGender = function(gender) {
+        // If the gender is already set, we don't need to do anything
+        if(gender == galleryGender) {
+            return;
+        }
+        
         // The gender has already been set in the settings before this function
         // is called, so all we need to do is redraw
         that.redraw();
@@ -37,6 +43,7 @@ function WidgetPhotoGallery(settings) {
         canvas.empty();
         currentEntry = -6;
         entries = [];
+        galleryGender = wSettings.gender;
         
         // Add the entries
         for(var i = 0; i < settings.entries.length; i++) {
@@ -56,7 +63,6 @@ function WidgetPhotoGallery(settings) {
             
             var img = $('<img src="'+photo+'"/>');
             img.width(90);
-            //img.height(70);
 
             entries.push({
                 photo: img,
@@ -68,6 +74,7 @@ function WidgetPhotoGallery(settings) {
 
         galleryHolder.css('width', wSettings.width);
         galleryHolder.css('height', wSettings.slide_height);
+        canvas.css('height', wSettings.slide_height);
         canvas.append(galleryHolder);
     };
     
@@ -93,7 +100,6 @@ function WidgetPhotoGallery(settings) {
                 link.css('float', 'left');
                 link.css('height', 70);
                 link.css('width', 90);
-                //link.css('overflow', 'hidden');
                 link.css('outline', 'none');
                 link.css('text-decoration', 'none');
                 link.css('color', wSettings.color);
@@ -125,6 +131,8 @@ function WidgetPhotoGallery(settings) {
                 imgHolder.css('overflow', 'hidden');
                 imgHolder.css('height', 70);
                 imgHolder.css('width', 90);
+                
+                entry.photo.css('border', 'none');
                 imgHolder.append(entry.photo);
                 
                 nameText.css('z-index', imgHolder.css('z-index') + 1);
