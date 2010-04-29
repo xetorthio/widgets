@@ -1,6 +1,6 @@
 function WidgetPhotoGallery(settings) {
     var that = this;
-    var currentEntry = -1;
+    var currentEntry = -6;
     var entries = [];
     var wSettings = null;
     var canvas = null;
@@ -35,7 +35,7 @@ function WidgetPhotoGallery(settings) {
     this.redraw = function() {
         galleryHolder.empty();
         canvas.empty();
-        currentEntry = -1;
+        currentEntry = -6;
         entries = [];
         
         // Add the entries
@@ -56,7 +56,7 @@ function WidgetPhotoGallery(settings) {
             
             var img = $('<img src="'+photo+'"/>');
             img.width(90);
-            img.height(70);
+            //img.height(70);
 
             entries.push({
                 photo: img,
@@ -72,23 +72,32 @@ function WidgetPhotoGallery(settings) {
     };
     
     this.ready = function() {
-        var complete = true;
         for(var n=0; n<6; n++) {
-            complete = complete && entries[(currentEntry+n)%6].photo.attr('complete')
+            var entryIndex = (currentEntry+n) % entries.length;
+            if(entries[entryIndex] && !entries[entryIndex].photo.attr('complete')) {
+                return false;
+            }
         }
-        return complete;
+        return true;
     }
     
     this.show = function() {
-        galleryHolder.animate({'opacity':0}, wSettings.effectDuration,function(){
+        galleryHolder.fadeOut(wSettings.effectDuration, function(){
             $(this).empty();
             for(var n=0; n<6; n++) {
-                var entry = entries[(currentEntry+n)%6];
+                var entryIndex = (currentEntry+n) % entries.length;
+                var entry = entries[entryIndex];
                 
                 var link = $('<a/>');
+                link.css('display', 'block');
+                link.css('float', 'left');
+                link.css('height', 70);
+                link.css('width', 90);
+                //link.css('overflow', 'hidden');
                 link.css('outline', 'none');
                 link.css('text-decoration', 'none');
                 link.css('color', wSettings.color);
+                link.css('margin', '4px');
                 wSettings.link_color && link.css('color', wSettings.link_color);
                 wSettings.link_font && link.css('font', wSettings.link_font);
                 // If there is no link url specified, disable click
@@ -99,17 +108,51 @@ function WidgetPhotoGallery(settings) {
                 }
                 link.css('cursor', 'pointer');
                 
+                var contentHolder = $('<div/>')
+                contentHolder.css('position', 'relative');
+                contentHolder.css('height', 70);
+                
+                var nameText = $('<div class="widgetphotogallery-name"/>');
+                nameText.text(entry.name);
+                nameText.css('position', 'absolute');
+                nameText.css('padding', 5);
+                nameText.css('-moz-border-radius', 5);
+                nameText.css('-webkit-border-radius', 5);
+                nameText.hide();
+                
                 var imgHolder = $('<div/>');
-                imgHolder.css('display', 'inline');
+                imgHolder.css('position', 'absolute');
+                imgHolder.css('overflow', 'hidden');
                 imgHolder.css('height', 70);
                 imgHolder.css('width', 90);
-                imgHolder.css('overflow', 'hidden');
-                imgHolder.css('margin', '4px');
-                link.append(entry.photo);
-                imgHolder.append(link);
-                galleryHolder.append(imgHolder);
+                imgHolder.append(entry.photo);
+                
+                nameText.css('z-index', imgHolder.css('z-index') + 1);
+                contentHolder.append(imgHolder);
+                contentHolder.append(nameText);
+                link.append(contentHolder);
+                
+                // When the user moves his mouse over the image, show the text
+                contentHolder.mouseover(function() {
+                    var nameDiv = $(this).find('.widgetphotogallery-name');
+                    nameDiv.css('color', wSettings.link_color || wSettings.color);
+                    nameDiv.css('background', wSettings.background);
+                    nameDiv.stop(true, true).fadeIn();
+                    
+                    // Center the name text.
+                    // Note: this has to be done after the name text is visible
+                    // or the width() method will return 0
+                    var nameLeft = (contentHolder.width() - nameDiv.width()) / 2;
+                    nameDiv.css('left', nameLeft);
+                });
+                contentHolder.mouseout(function() {
+                    var nameDiv = $(this).find('.widgetphotogallery-name');
+                    nameDiv.stop(true, true).fadeOut();
+                });
+                
+                galleryHolder.append(link);
             }
-            galleryHolder.animate({'opacity':100}, wSettings.effectDuration)
+            galleryHolder.fadeIn(wSettings.effectDuration);
         });
     };
 }

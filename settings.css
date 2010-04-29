@@ -59,7 +59,7 @@ table.content td {
   width: 210px;
 }
 
-#widgetSlideshow, #widgetNewsFeed, #alternativeBackgroundSelectorBox {
+#widgetSlideshow, #widgetNewsFeed, #widgetPhotoGallery, #alternativeBackgroundSelectorBox {
   display: none;
 }
 
