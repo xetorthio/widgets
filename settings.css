@@ -26,10 +26,6 @@ body {
 }
 
 
-.left, .middle, .top {
-  vertical-align: top;
-}
-
 h3 {
   font-size: 16px;
   margin: 0 0 10px 0;
@@ -41,15 +37,6 @@ table.content {
 }
 table.content td {
   vertical-align: top;
-}
-
-.settings-column {
-}
-
-.colors-column {
-}
-
-.widget-column {
 }
 
 
@@ -77,6 +64,7 @@ table.content td {
   float: left;
   clear: both;
   margin: 5px 0;
+  width: 190px;
 }
 .section label {
   width: 80px;

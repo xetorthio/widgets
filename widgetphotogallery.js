@@ -36,7 +36,7 @@ function WidgetPhotoGallery(settings) {
         wSettings = widgetSettings;
         canvas = widgetCanvas;
         that.redraw();
-    }
+    };
     
     this.redraw = function() {
         galleryHolder.empty();
@@ -86,7 +86,7 @@ function WidgetPhotoGallery(settings) {
             }
         }
         return true;
-    }
+    };
     
     this.show = function() {
         galleryHolder.fadeOut(wSettings.effectDuration, function(){
@@ -114,7 +114,7 @@ function WidgetPhotoGallery(settings) {
                 }
                 link.css('cursor', 'pointer');
                 
-                var contentHolder = $('<div/>')
+                var contentHolder = $('<div/>');
                 contentHolder.css('position', 'relative');
                 contentHolder.css('height', 70);
                 

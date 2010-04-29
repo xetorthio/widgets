@@ -22,7 +22,7 @@ function WidgetNewsFeed(settings) {
 
     this.setAlternativeColor = function(color) {
         drawAlternateBackground('none', color);
-    }
+    };
 
     this.goNext = function() {
         forward = true;
@@ -43,7 +43,7 @@ function WidgetNewsFeed(settings) {
         wSettings = widgetSettings;
         canvas = widgetCanvas;
         that.redraw();
-    }
+    };
 
     this.redraw = function() {
         feedHolder.empty();
@@ -56,9 +56,10 @@ function WidgetNewsFeed(settings) {
         // Add the entries
         feedList.css('height', wSettings.slide_height);
         feedList.css('margin-left', 0);
+        feedList.css('padding-left', 0);
         feedList.css('list-style', 'none');
         var n = 0;
-        for ( var i = 0; i < settings.entries.length; i++) {
+        for (var i = 0; i < settings.entries.length; i++) {
             var entrySettings = settings.entries[i];
 
             // bypass content not of the specified gender
@@ -78,10 +79,7 @@ function WidgetNewsFeed(settings) {
             var entryHolder = $('<li/>');
             entryHolder.css('display', 'block');
             entryHolder.css('padding', 0);
-            entryHolder.css('margin-top', 3);
-            entryHolder.css('margin-right', 3);
-            entryHolder.css('margin-bottom', 3);
-            entryHolder.css('margin-left', -37);
+            entryHolder.css('margin', 3);
             entryHolder.css('border', 0);
             entryHolder.css('outline', 0);
             entryHolder.css('height', wSettings.image_height + 6);
@@ -119,14 +117,12 @@ function WidgetNewsFeed(settings) {
             nameLink.text(name);
             // If there is no link url specified, disable click
             if (link == null) {
-                nameLink.click(function() {
-                    return false;
-                });
+                nameLink.click(function() { return false; });
             } else {
                 nameLink.attr('href', link);
             }
             nameLink.css('cursor', 'pointer');
-            entryHolder.append(nameLink)
+            entryHolder.append(nameLink);
 
             // Create a link to the region that the user is from
             var regionLink = $('<a class="region-link"/>');
@@ -145,9 +141,7 @@ function WidgetNewsFeed(settings) {
             regionLink.text(region);
             // If there is no region link url specified, disable click
             if (regionUrl == null) {
-                regionLink.click(function() {
-                    return false;
-                });
+                regionLink.click(function() { return false; });
             } else {
                 regionLink.attr('href', regionUrl);
             }
@@ -171,7 +165,7 @@ function WidgetNewsFeed(settings) {
 
     this.ready = function() {
         return entries[currentEntry].img.attr('complete');
-    }
+    };
 
     this.show = function() {
         if (forward) {

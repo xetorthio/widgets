@@ -26,7 +26,7 @@ function WidgetSlideshow(settings) {
         canvas = widgetCanvas;
         wSettings = widgetSettings;
         that.redraw();
-    }
+    };
     
     this.redraw = function() {
         canvas.empty();
@@ -174,7 +174,7 @@ function WidgetSlideshow(settings) {
         }
         
         return 0;
-    };
+    }
     
     function getNextSlideIndexUnfiltered(forwards, startIndex) {
         if(typeof startIndex == 'undefined') {
@@ -192,11 +192,11 @@ function WidgetSlideshow(settings) {
             return slides.length - 1;
         }
         return startIndex - 1;
-    };
+    }
     
     this.ready = function() {
         return slides[currentSlide].img.attr('complete');
-    }
+    };
     
     this.show = function(){
         // If the image height is smaller than the maximum height, crop

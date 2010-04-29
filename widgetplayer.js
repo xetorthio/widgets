@@ -6,7 +6,7 @@ function WidgetPlayer(options) {
     var header = $('<div class="widgetplayer-header" />');
     var canvas = $('<div class="widgetplayer-canvas"/>');
     var nav = $('<div class="widgetplayer-nav"/>');
-    var footer = $('.widgetplayer-footer', widget)
+    var footer = $('.widgetplayer-footer', widget);
     var back = $('<div class="widgetplayer-back"/>');
     var playPause = $('<img class="widgetplayer-playpause"/>');
     var next = $('<div class="widgetplayer-next"/>');
@@ -334,7 +334,7 @@ function WidgetPlayer(options) {
     
     this.isPlaying = function() {
         return settings.auto;
-    }
+    };
     
     //
     // These functions act on the widget object itself
