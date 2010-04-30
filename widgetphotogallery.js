@@ -56,19 +56,16 @@ function WidgetPhotoGallery(settings) {
             }
             
 
-            var photo = entrySettings.photo;
-            var link = entrySettings.link;
-            var gender = entrySettings.gender;
-            var name = entrySettings.name;
-            
-            var img = $('<img src="'+photo+'"/>');
+            var img = $('<img src="'+entrySettings.photo+'"/>');
             img.width(90);
 
             entries.push({
                 photo: img,
-                link: link,
-                gender: gender,
-                name: name
+                link: entrySettings.link,
+                gender: entrySettings.gender,
+                name: entrySettings.name,
+                region: entrySettings.region,
+                region_link: entrySettings.region_link
             });
         }
 
@@ -95,72 +92,105 @@ function WidgetPhotoGallery(settings) {
                 var entryIndex = (currentEntry+n) % entries.length;
                 var entry = entries[entryIndex];
                 
-                var link = $('<a/>');
-                link.css('display', 'block');
-                link.css('float', 'left');
-                link.css('height', 70);
-                link.css('width', 90);
-                link.css('outline', 'none');
-                link.css('text-decoration', 'none');
-                link.css('color', wSettings.color);
-                link.css('margin', '4px');
-                wSettings.link_color && link.css('color', wSettings.link_color);
-                wSettings.link_font && link.css('font', wSettings.link_font);
-                // If there is no link url specified, disable click
-                if(entry.link == null) {
-                    link.click( function() { return false; } );
-                } else {
-                    link.attr('href', entry.link);
-                }
-                link.css('cursor', 'pointer');
+                var cell = $('<div/>');
+                cell.css('float', 'left');
+                cell.css('height', 70);
+                cell.css('width', 90);
+                cell.css('margin', '4px');
                 
+                // We need to create a div with position relative to hold
+                // the image and link which have position absolute
                 var contentHolder = $('<div/>');
                 contentHolder.css('position', 'relative');
                 contentHolder.css('height', 70);
                 
-                var nameText = $('<div class="widgetphotogallery-name"/>');
-                nameText.text(entry.name);
-                nameText.css('position', 'absolute');
-                nameText.css('padding', 5);
-                nameText.css('-moz-border-radius', 5);
-                nameText.css('-webkit-border-radius', 5);
-                nameText.hide();
+                // The div holding the text that pops up on mouse over
+                var rolloverText = $('<div class="widgetphotogallery-rollover"/>');
+                rolloverText.css('position', 'absolute');
+                rolloverText.css('padding', 5);
+                rolloverText.css('-moz-border-radius', 5);
+                rolloverText.css('-webkit-border-radius', 5);
+                rolloverText.hide();
                 
-                var imgHolder = $('<div/>');
+                function setupLink(element, text, linkUrl) {
+                    if(text) {
+                        element.text(text);
+                    }
+                    element.css('display', 'block');
+                    element.css('cursor', 'pointer');
+                    element.css('outline', 'none');
+                    element.css('text-decoration', 'none');
+                    element.css('horizontal-align', 'center');
+                    
+                    var color = wSettings.link_color || wSettings.color;
+                    element.css('color', color);
+                    var font = wSettings.link_font || wSettings.font;
+                    element.css('font', font);
+                    
+                    // If there is no link url specified, disable click
+                    if(linkUrl == null) {
+                        element.click( function() { return false; } );
+                    } else {
+                        element.attr('href', linkUrl);
+                    }
+                }
+                
+                // The two text links in the rollover div
+                var nameText = $('<a/>');
+                setupLink(nameText, entry.name, entry.link);
+                rolloverText.append(nameText);
+                
+                var regionText = $('<a/>');
+                setupLink(regionText, entry.region, entry.region_link);
+                rolloverText.append(regionText);
+                
+                // A div around the image, to crop it
+                var imgHolder = $('<a/>');
+                setupLink(imgHolder, null, entry.link);
                 imgHolder.css('position', 'absolute');
                 imgHolder.css('overflow', 'hidden');
                 imgHolder.css('height', 70);
                 imgHolder.css('width', 90);
                 
+                // The image itself
                 entry.photo.css('border', 'none');
                 imgHolder.append(entry.photo);
                 
-                nameText.css('z-index', imgHolder.css('z-index') + 1);
+                // Make sure the rollover text is displayed over the image
+                rolloverText.css('z-index', imgHolder.css('z-index') + 1);
+                
                 contentHolder.append(imgHolder);
-                contentHolder.append(nameText);
-                link.append(contentHolder);
+                contentHolder.append(rolloverText);
+                cell.append(contentHolder);
                 
-                // When the user moves his mouse over the image, show the text
+                // When the user moves his mouse over the image, show the rollover
                 contentHolder.mouseover(function() {
-                    var nameDiv = $(this).find('.widgetphotogallery-name');
-                    nameDiv.css('color', wSettings.link_color || wSettings.color);
-                    nameDiv.css('background', wSettings.background);
-                    nameDiv.stop(true, true).fadeIn();
+                    var rollover = $(this).find('.widgetphotogallery-rollover');
+                    rollover.css('color', wSettings.link_color || wSettings.color);
+                    rollover.css('background', wSettings.background);
+                    rollover.show();
                     
-                    // Center the name text.
-                    // Note: this has to be done after the name text is visible
+                    // Center the rollover.
+                    // Note: this has to be done after the text is visible
                     // or the width() method will return 0
-                    var nameLeft = (contentHolder.width() - nameDiv.width()) / 2;
-                    nameDiv.css('left', nameLeft);
+                    var nameLeft = (contentHolder.width() - rollover.width()) / 2;
+                    if(rollover.css('left') == '0px') {
+                        rollover.css('left', nameLeft);
+                    }
                 });
-                contentHolder.mouseout(function() {
-                    var nameDiv = $(this).find('.widgetphotogallery-name');
-                    nameDiv.stop(true, true).fadeOut();
+                contentHolder.mouseout(function(event) {
+                    var rollover = $(this).find('.widgetphotogallery-rollover');
+                    rollover.hide();
                 });
                 
-                galleryHolder.append(link);
+                galleryHolder.append(cell);
             }
             galleryHolder.fadeIn(wSettings.effectDuration);
         });
     };
+    
+    this.inBounds = function(event, bounds) {
+        return (bounds.left <= event.pageX && event.pageX < bounds.right &&
+                bounds.top <= event.pageY && event.pageY < bounds.bottom)
+    }
 }
