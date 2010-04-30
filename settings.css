@@ -117,3 +117,19 @@ table.content td {
   padding: 0 10px;
   clear: both;
 }
+
+#copyToClipboard {
+  border: 1px solid #999999;
+  -moz-border-radius: 5px; -webkit-border-radius: 5px;
+  padding: 5px;
+  background: #EEEEEE;
+  width: 80px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#copyToClipboard.active {
+  background: #CCCCCC;
+  color: white;
+  border-color: white;
+}

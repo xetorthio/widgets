@@ -627,5 +627,21 @@ jQuery(document).ready(function($) {
         updateCode();
     }
     
+    
+    function initClipboard() {
+        ZeroClipboard.setMoviePath('zeroclipboard/ZeroClipboard.swf');
+        var clip = new ZeroClipboard.Client();
+        clip.setHandCursor(true);
+        clip.setCSSEffects(true);
+        
+        clip.addEventListener('mouseDown', function() {
+            clip.setText($('#code').val());
+        });
+        
+        clip.glue('copyToClipboard');
+    }
+    
+    
+    initClipboard();
     init();
 });
