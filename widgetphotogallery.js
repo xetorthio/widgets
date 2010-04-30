@@ -18,6 +18,11 @@ function WidgetPhotoGallery(settings) {
         that.redraw();
     };
     
+    this.setLinkColor = function(color) {
+        $('a', canvas).css('color', color);
+    };
+    
+    
     this.goNext = function() {
         currentEntry+=6;
         if(currentEntry >= entries.length) {

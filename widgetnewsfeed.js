@@ -19,10 +19,15 @@ function WidgetNewsFeed(settings) {
         // is called, so all we need to do is redraw
         that.redraw();
     };
+    
+    this.setLinkColor = function(color) {
+        $('a', canvas).css('color', color);
+    };
 
     this.setAlternativeColor = function(color) {
         drawAlternateBackground('none', color);
     };
+    
 
     this.goNext = function() {
         forward = true;
