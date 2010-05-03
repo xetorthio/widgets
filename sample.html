@@ -4,340 +4,349 @@
   <head>
     <title>Widget Demo</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script type="text/javascript" language="Javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" language="Javascript" src="jqueryload.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetplayer.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetslideshow.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetnewsfeed.js"></script>
     <script type="text/javascript" language="Javascript" src="widgetphotogallery.js"></script>
     
     <script type="text/javascript" language="Javascript">
-      jQuery(document).ready(function($) {
-            var w = new WidgetPlayer({
-                id: 'widgetSlideShow',
-                title: 'Slideshow Widget',
-                messages: {
-                    back: '< Prev.',
-                    next: 'Next. >'
-                },
-                images: {
-                    play: 'images/play.png',
-                    pause: 'images/pause.png'
-                },
-                auto: false,
-                duration: 5,
-                type: new WidgetSlideshow({
-                    slides: [
-                       {
-                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
-                           link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                           region: 'Buenos Aires, Argentina',
-                           region_link: 'http://www.amistarium.com/es/buenos-aires',
-                           gender: 'f'
-                       }, {
-                           photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
-                           link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                           region: 'London, England',
-                           region_link: 'http://www.amistarium.com/es/buenos-aires',
-                           gender: 'm'
-                       }, {
-                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
-                           link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                           region: 'Seattle, United States',
-                           region_link: 'http://www.amistarium.com/es/buenos-aires',
-                           gender: 'f'
-                       }, {
-                           photo: 'http://static05.amistarium.com/img-es-es-/2010/4/17/mdn-1516497091098796.jpg',
-                           link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                           region: 'Madrid, España',
-                           region_link: 'http://www.amistarium.com/es/buenos-aires',
-                           gender: 'f'
-                       }, {
-                           photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-2450736691107749.jpg',
-                           link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                           region: 'Bilbao, Portugal',
-                           region_link: 'http://www.amistarium.com/es/buenos-aires',
-                           gender: 'm'
-                       }, {
-                           photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
-                           link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                           region: 'Perth, Australia',
-                           region_link: 'http://www.amistarium.com/es/buenos-aires',
-                           gender: 'm'
-                       }
-                   ]
-                })
+      var onJQueryLoad = onJQueryLoad || [];
+      onJQueryLoad.push(function() {
+        jQuery(document).ready(function($) {
+              var w = new WidgetPlayer({
+                  id: 'widgetSlideShow',
+                  title: 'Slideshow Widget',
+                  messages: {
+                      back: '< Prev.',
+                      next: 'Next. >'
+                  },
+                  images: {
+                      play: 'images/play.png',
+                      pause: 'images/pause.png'
+                  },
+                  auto: false,
+                  duration: 5,
+                  type: new WidgetSlideshow({
+                      slides: [
+                         {
+                             photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
+                             link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                             region: 'Buenos Aires, Argentina',
+                             region_link: 'http://www.amistarium.com/es/buenos-aires',
+                             gender: 'f'
+                         }, {
+                             photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
+                             link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                             region: 'London, England',
+                             region_link: 'http://www.amistarium.com/es/buenos-aires',
+                             gender: 'm'
+                         }, {
+                             photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
+                             link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                             region: 'Seattle, United States',
+                             region_link: 'http://www.amistarium.com/es/buenos-aires',
+                             gender: 'f'
+                         }, {
+                             photo: 'http://static05.amistarium.com/img-es-es-/2010/4/17/mdn-1516497091098796.jpg',
+                             link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                             region: 'Madrid, España',
+                             region_link: 'http://www.amistarium.com/es/buenos-aires',
+                             gender: 'f'
+                         }, {
+                             photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-2450736691107749.jpg',
+                             link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                             region: 'Bilbao, Portugal',
+                             region_link: 'http://www.amistarium.com/es/buenos-aires',
+                             gender: 'm'
+                         }, {
+                             photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
+                             link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                             region: 'Perth, Australia',
+                             region_link: 'http://www.amistarium.com/es/buenos-aires',
+                             gender: 'm'
+                         }
+                     ]
+                  })
+                });
+              var w3 = new WidgetPlayer({
+                  id: 'widgetPhotoGallery',
+                  title: 'PhotoGallery Widget',
+                  messages: {
+                      back: '< Prev.',
+                      next: 'Next. >'
+                  },
+                  images: {
+                      play: 'images/play.png',
+                      pause: 'images/pause.png'
+                  },
+                  auto: false,
+                  duration: 5,
+                  type: new WidgetPhotoGallery({
+                      entries: [
+                          {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Buenos Aires, Argentina',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Juana'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'London, England',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'John'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Seattle, United States',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Francisca'
+                          }, {
+                              photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/mdn-2408352641107401.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Madrid, España',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Luciana'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1890168181102365.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Bilbao, Portugal',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Eduardo'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Perth, Australia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Andrew'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/mdn-2411782731107456.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Madrid, España',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Laura'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2448025811107741.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Bilbao, Portugal',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Federico'
+                          }, {
+                              photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/mdn-2428477741107652.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Perth, Australia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Gemma'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2417619291107537.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Madrid, España',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Maria'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-244741321107738.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Bilbao, Portugal',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Mario'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2427440831107638.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Perth, Australia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Sharon'
+                          }, {
+                              photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/mdn-2544872551108575.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Roma, Italia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Gimena'
+                          }, {
+                              photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/mdn-2534532111108544.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Mendoza, Argentina',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Clara'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/mdn-2530927331108534.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'New York, Estados Unidos',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Ofelia'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/mdn-2523752291108519.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Santiago, Chile',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Ferula'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/mdn-250933641108395.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Lima, Peru',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Agustina'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/mdn-2506677371108356.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'DF, Mexico',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Gabriella'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/29/mdn-2505777141108339.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Puerto Rico',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Telma'
+                          }
+                     ]
+                  })
+                });
+              var w2 = new WidgetPlayer({
+                  id: 'widgetNewsFeed',
+                  title: 'NewsFeed Widget',
+                  messages: {
+                      back: '< Prev.',
+                      next: 'Next. >'
+                  },
+                  images: {
+                      play: 'images/play.png',
+                      pause: 'images/pause.png'
+                  },
+                  image_height: 50,
+                  image_width: 50,
+                  alternative_background: '#333333',
+                  auto: false,
+                  duration: 5,
+                  type: new WidgetNewsFeed({
+                      entries: [
+                          {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1138905461095299.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Buenos Aires, Argentina',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Juana'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1897181551102475.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'London, England',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'John'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1137618641095294.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Seattle, United States',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Francisca'
+                          }, {
+                              photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/pqn-2408352641107401.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Madrid, España',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Luciana'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1890168181102365.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Bilbao, Portugal',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Eduardo'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/pqn-4196380081012921.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Perth, Australia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Andrew'
+                          }, {
+                              photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/pqn-2411782731107456.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Madrid, España',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Laura'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2448025811107741.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Bilbao, Portugal',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Federico'
+                          }, {
+                              photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/pqn-2428477741107652.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Perth, Australia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Gemma'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2417619291107537.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Madrid, España',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Maria'
+                          }, {
+                              photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/pqn-244741321107738.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Bilbao, Portugal',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'm',
+                              name: 'Mario'
+                          }, {
+                              photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2427440831107638.jpg',
+                              link: 'http://www.amistarium.com/user-view_user-1108544.html',
+                              region: 'Perth, Australia',
+                              region_link: 'http://www.amistarium.com/es/buenos-aires',
+                              gender: 'f',
+                              name: 'Sharon'
+                          }
+                     ]
+                  })
               });
-            var w3 = new WidgetPlayer({
-                id: 'widgetPhotoGallery',
-                title: 'PhotoGallery Widget',
-                messages: {
-                    back: '< Prev.',
-                    next: 'Next. >'
-                },
-                images: {
-                    play: 'images/play.png',
-                    pause: 'images/pause.png'
-                },
-                auto: false,
-                duration: 5,
-                type: new WidgetPhotoGallery({
-                    entries: [
-                        {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1138905461095299.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Buenos Aires, Argentina',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Juana'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1897181551102475.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'London, England',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'John'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/mdn-1137618641095294.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Seattle, United States',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Francisca'
-                        }, {
-                            photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/mdn-2408352641107401.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Madrid, España',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Luciana'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/mdn-1890168181102365.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Bilbao, Portugal',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Eduardo'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/mdn-4196380081012921.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Perth, Australia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Andrew'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/mdn-2411782731107456.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Madrid, España',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Laura'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2448025811107741.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Bilbao, Portugal',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Federico'
-                        }, {
-                            photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/mdn-2428477741107652.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Perth, Australia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Gemma'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2417619291107537.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Madrid, España',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Maria'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/mdn-244741321107738.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Bilbao, Portugal',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Mario'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/mdn-2427440831107638.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Perth, Australia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Sharon'
-                        }, {
-                            photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/mdn-2544872551108575.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Roma, Italia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Gimena'
-                        }, {
-                            photo: 'http://static02.amistarium.com/img-es-es-/2010/4/29/mdn-2534532111108544.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Mendoza, Argentina',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Clara'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/mdn-2530927331108534.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'New York, Estados Unidos',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Ofelia'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/mdn-2523752291108519.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Santiago, Chile',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Ferula'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/29/mdn-250933641108395.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Lima, Peru',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Agustina'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/29/mdn-2506677371108356.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'DF, Mexico',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Gabriella'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/29/mdn-2505777141108339.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Puerto Rico',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Telma'
-                        }
-                   ]
-                })
-              });
-            var w2 = new WidgetPlayer({
-                id: 'widgetNewsFeed',
-                title: 'NewsFeed Widget',
-                messages: {
-                    back: '< Prev.',
-                    next: 'Next. >'
-                },
-                images: {
-                    play: 'images/play.png',
-                    pause: 'images/pause.png'
-                },
-                image_height: 50,
-                image_width: 50,
-                alternative_background: '#333333',
-                auto: false,
-                duration: 5,
-                type: new WidgetNewsFeed({
-                    entries: [
-                        {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1138905461095299.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Buenos Aires, Argentina',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Juana'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1897181551102475.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'London, England',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'John'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/13/pqn-1137618641095294.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Seattle, United States',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Francisca'
-                        }, {
-                            photo: 'http://static03.amistarium.com/img-es-es-/2010/4/28/pqn-2408352641107401.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Madrid, España',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Luciana'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/22/pqn-1890168181102365.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Bilbao, Portugal',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Eduardo'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/1/7/pqn-4196380081012921.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Perth, Australia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Andrew'
-                        }, {
-                            photo: 'http://static04.amistarium.com/img-es-es-/2010/4/28/pqn-2411782731107456.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Madrid, España',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Laura'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2448025811107741.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Bilbao, Portugal',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Federico'
-                        }, {
-                            photo: 'http://static02.amistarium.com/img-es-es-/2010/4/28/pqn-2428477741107652.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Perth, Australia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Gemma'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2417619291107537.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Madrid, España',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Maria'
-                        }, {
-                            photo: 'http://static01.amistarium.com/img-es-es-/2010/4/28/pqn-244741321107738.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Bilbao, Portugal',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'm',
-                            name: 'Mario'
-                        }, {
-                            photo: 'http://static05.amistarium.com/img-es-es-/2010/4/28/pqn-2427440831107638.jpg',
-                            link: 'http://www.amistarium.com/user-view_user-1108544.html',
-                            region: 'Perth, Australia',
-                            region_link: 'http://www.amistarium.com/es/buenos-aires',
-                            gender: 'f',
-                            name: 'Sharon'
-                        }
-                   ]
-                })
-            });
-
+  
+        });
       });
     </script>
   </head>
   <body>
       <div id="widgetPhotoGallery">
-        <div><a href="http://google.com" class="widgetplayer-footer">google.com</a></div>
+        <div class="widgetplayer-footer" style="display: none">
+          <a href="http://google.com">google.com</a>
+        </div>
       </div>
       <div id="widgetSlideShow">
-        <div><a href="http://google.com" class="widgetplayer-footer">google.com</a></div>
+        <div class="widgetplayer-footer" style="display: none">
+          <a href="http://google.com">google.com</a>
+        </div>
       </div>
       <div id="widgetNewsFeed">
-        <div><a href="http://google.com" class="widgetplayer-footer">google.com</a></div>
+        <div class="widgetplayer-footer" style="display: none">
+          <a href="http://google.com">google.com</a>
+        </div>
       </div>
   </body>
 </html>

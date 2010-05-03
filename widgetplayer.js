@@ -224,8 +224,8 @@ function WidgetPlayer(options) {
         footer.css('padding', '5px 0 10px 0');
         footer.css('width', widget.width());
         footer.css('text-align', 'center');
-        footer.css('display', 'block');
         footer.css('font', settings.footer_font || settings.font);
+        footer.css('display', 'block');
     }
 
     
