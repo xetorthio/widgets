@@ -21,7 +21,7 @@
 				onHide: function () {},
 				onChange: function () {},
 				onSubmit: function () {},
-				color: 'ff0000',
+				color: 'FF0000',
 				livePreview: true,
 				flat: false
 			},
@@ -363,7 +363,7 @@
 						hex[nr] = '0' + val;
 					}
 				});
-				return hex.join('');
+				return hex.join('').toUpperCase();
 			},
 			HSBToHex = function (hsb) {
 				return RGBToHex(HSBToRGB(hsb));
