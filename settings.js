@@ -1,7 +1,7 @@
 /**
  * Javascript for settings page
  */
-function SettingsPage(web) {
+function SettingsPage(script, web) {
     var widget, slideshowWidget, feedWidget, galleryWidget;
     
     // Change the title of the widget if the title text is changed in the settings
@@ -129,7 +129,7 @@ function SettingsPage(web) {
     /**
      * Update the embed code box
      */
-    var generatedId = 'widget-'+Math.random();
+    var generatedId = 'widget-'+Math.floor(Math.random() * 10000000);
     function updateCode() {
         var params = [];
         params.push(['id', generatedId]);
@@ -156,7 +156,7 @@ function SettingsPage(web) {
         params = escaped.join('&');
         
         var embedCode  = '<script type="text/javascript" language="Javascript" charset="utf-8"';
-        embedCode     += ' src="http://amistarium.com/widget.php?'+params+'">';
+        embedCode     += ' src="'+script+'?'+params+'">';
         embedCode     += '</script>';
         embedCode     += '<div id="'+generatedId+'">';
         embedCode     += ' <div class="widgetplayer-footer" style="display: none">';
