@@ -1,7 +1,7 @@
 /**
  * Javascript for settings page
  */
-jQuery(document).ready(function($) {
+function SettingsPage(web) {
     var widget, slideshowWidget, feedWidget, galleryWidget;
     
     // Change the title of the widget if the title text is changed in the settings
@@ -134,6 +134,7 @@ jQuery(document).ready(function($) {
         var params = [];
         params.push(['id', generatedId]);
         params.push(['type', $('#widget_type').val()]);
+        params.push(['web', web]);
         params.push(['title', $('#title').val()]);
         params.push(['auto', $('#auto').attr('checked')]);
         params.push(['duration', $('#duration').val()]);
@@ -158,7 +159,7 @@ jQuery(document).ready(function($) {
         embedCode     += ' src="http://amistarium.com/widget.php?'+params+'">';
         embedCode     += '</script>';
         embedCode     += '<div id="'+generatedId+'">';
-        embedCode     += ' <div class="widgetplayer-footer">';
+        embedCode     += ' <div class="widgetplayer-footer" style="display: none">';
         embedCode     += '  <a href="http://www.amistarium.com">amistarium.com</a>';
         embedCode     += ' </div>';
         embedCode     += '</div>';
@@ -644,4 +645,4 @@ jQuery(document).ready(function($) {
     
     initClipboard();
     init();
-});
+}
