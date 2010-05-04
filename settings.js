@@ -156,7 +156,7 @@ function SettingsPage(script, web) {
         params = escaped.join('&');
         
         var embedCode  = '<script type="text/javascript" language="Javascript" charset="utf-8"';
-        embedCode     += ' src="'+script+'?'+params+'">';
+        embedCode     += ' src="'+script+params+'">';
         embedCode     += '</script>';
         embedCode     += '<div id="'+generatedId+'">';
         embedCode     += ' <div class="widgetplayer-footer" style="display: none">';
