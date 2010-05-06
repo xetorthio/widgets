@@ -1,7 +1,7 @@
 /**
  * Javascript for settings page
  */
-function SettingsPage(script, web) {
+function SettingsPage(script, web, footerHtml) {
     var widget, slideshowWidget, feedWidget, galleryWidget;
     
     // Change the title of the widget if the title text is changed in the settings
@@ -160,7 +160,7 @@ function SettingsPage(script, web) {
         embedCode     += '</script>';
         embedCode     += '<div id="'+generatedId+'">';
         embedCode     += ' <div class="widgetplayer-footer" style="display: none">';
-        embedCode     += '  <a href="http://www.amistarium.com">amistarium.com</a>';
+        embedCode     += footerHtml;
         embedCode     += ' </div>';
         embedCode     += '</div>';
         
