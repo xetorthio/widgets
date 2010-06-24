@@ -99,6 +99,10 @@ function WidgetNewsFeed(settings) {
             entryImg.css('border', 'none');
             entryImg.css('width', wSettings.image_width);
             entryImg.css('overflow', 'hidden');
+            entryImg.css('cursor', 'pointer');
+            entryImg.click(function() {
+                location.href = link;
+            });
 
             var entryImgCrop = $('<div/>');
             entryImgCrop.css('height', wSettings.image_height);
